@@ -1,4 +1,4 @@
-Mykhailo Shmaliy
-Matvii Tsurpal
-Nikita Yakovliev
-Ilya Czyż
+(Mykhailo Shmaliy - M1szS)
+(Matvii Tsurpal - Matvii)
+(Nikita Yakovliev - Nikita Yakovliev)
+(Ilya Czyż - jeszcze nie ma githuba)

@@ -1,0 +1,43 @@
+// <SELECT>
+// Сніппет (HTML): sel
+.select-main {
+
+  &__control {
+    cursor: pointer !important;
+
+    &--menu-is-open .select-main__dropdown-indicator svg {
+      transform: rotate(180deg) !important;
+    }
+
+    &--menu-is-open {
+      box-shadow: 0 0 0 rem(1) var(--bg-accent) !important;
+    }
+
+    &--is-focused {
+      box-shadow: none !important;
+    }
+
+    &:hover {
+      box-shadow: 0 0 0 rem(1) var(--bg-accent) !important;
+    }
+  }
+
+  &__option {
+    cursor: pointer !important;
+  }
+
+  &__menu {
+    top: 1.95rem !important;
+  }
+
+  &__indicators {
+
+    & svg {
+      transition: ease transform 0.3s;
+    }
+  }
+
+  &__placeholder {
+    color: var(--primary) !important;
+  }
+}

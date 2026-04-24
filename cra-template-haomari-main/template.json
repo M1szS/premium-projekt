@@ -1,0 +1,19 @@
+{
+  "package": {
+    "dependencies": {
+			"@testing-library/jest-dom": "latest",
+			"@testing-library/react": "latest",
+			"@testing-library/user-event": "latest",
+			"react": "^18.2.0",
+			"react-dom": "^18.2.0",
+			"react-router-dom": "latest",
+			"react-scripts": "latest",
+			"react-use": "latest",
+			"web-vitals": "latest",
+			"sass": "latest"
+    },
+    "eslintConfig": {
+      "extends": ["react-app", "react-app/jest"]
+    }
+  }
+}

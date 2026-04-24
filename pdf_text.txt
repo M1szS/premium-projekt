@@ -1,0 +1,1515 @@
+         
+prof. Krzysztofa Lorysia 
+napisana pod kierunkiem  
+Praca magisterska  
+     
+  
+(Implementation of Abstract Computation Model –  RAM Machine) 
+ 
+- Maszyny RAM 
+Implementacja abstrakcyjnego modelu oblicze - 
+ 
+Ł ukasz Szkup 
+ 
+           
+Instytut Informatyki 
+Wydział Matematyki i Informatyki 
+Uniwersytet Wrocławski 
+Wrocław, 2006 
+----------------Page (0) Break----------------
+                                                                       2 
+ dedykuj Rodzinie oraz onie Aleksandrze.
+  Prac
+Rafała Szkup 
+Natalii Madej 
+Agnieszki Kawałkowskiej 
+kowania za pomoc w testowaniu programu (kolejno alfabetyczna) dla: 
+                                       Podzi
+----------------Page (1) Break----------------
+                                                                       3 
+ 
+Bibliografia......................................................................................................... 45
+Klasy P i NP................................................................................................................. 43 
+Niedeterministyczna maszyna Turinga (NDTM) .................................................... 43 
+Deterministyczna maszyna Turinga (DTM) ............................................................ 43 
+ 
+Dodatek - Maszyny Turinga............................................................................. 43
+ 
+Podsumowanie ................................................................................................... 42
+ 
+Implementacja i informacje dla kontynuatorów programu ......................... 37
+ 
+Obsługa programu „ Maszyna RAM”  w wersji tekstowej............................. 35
+Najwikszy wspólny dzielnik ..................................................................................... 34 
+Silnia............................................................................................................................. 33 
+Dodawanie ................................................................................................................... 32 
+ 
+Przykładowe programy w kodzie RAM.......................................................... 32
+Opcje –  konfiguracja programu ................................................................................ 29 
+Drukowanie ................................................................................................................. 27 
+Import i Eksport ......................................................................................................... 25 
+Weryfikacja, uruchamianie i ledzenie programu .................................................. 23 
+Kontrolka statystyk złoonoci programu....................................................................... 22
+ 
+Edytor programu ............................................................................................................... 20
+ 
+Kontrolka tamy wejciowej i wyjciowej ....................................................................... 20
+ 
+Kontrolka pamici ............................................................................................................. 18
+ 
+Kontrolka procesora.......................................................................................................... 17
+ 
+Składowe edytora „ Maszyny RAM” ......................................................................... 16 
+Instalacja programu ................................................................................................... 13 
+Informacje wstpne .................................................................................................... 13 
+ 
+Obsługa programu „ Maszyna RAM”  ............................................................. 13
+ 
+Złoono obliczeniowa programów RAM ..................................................... 10
+ 
+Specyfikacja kodu RAM..................................................................................... 7
+ 
+Wstp .................................................................................................................... 5
+ 
+ 
+SPIS TRECI
+----------------Page (2) Break----------------
+                                                                       4 
+----------------Page (3) Break----------------
+                                                                       5 
+bibliografi, któr autor si posiłkował podczas pisania niniejszej pracy. 
+Ostatecznie  podsumujemy  wszystkie  zebrane  tu  wiadomoci  oraz  podamy 
+take si z technikami kompilacji i translacji kodu. 
+tłumaczony na kod RAM, a nastpnie uruchamiany. Bdzie to wietna okazja by zapozna 
+doda do programu jzyk programowania (oraz odpowiedni edytor), który moe by 
+Zostanie omówiona struktura projektu, podział na moduły oraz wskazówki, pozwalajce 
+tych czytelników, którzy zapragn rozwija implementowan dla celów tej pracy aplikacj. 
+„ Implementacja i informacje dla kontynuatorów programu”  to cenne informacje dla 
+tak wersj posługiwa. 
+przygotowana take specjalna wersja maszyny. W kolejnym rozdziale opiszemy jak si 
+Dla   zwolenników   programów   uruchamianych   w   trybie   polece   została 
+Szczegółowo przeanalizujemy kady z programów, by dokładnie zrozumie ich działanie. 
+kolejny   rozdział  bdzie  powicony   na  omówienie  trzech  krótkich  programów. 
+Aby czytelnik mógł z wiksz łatwoci utrwali sobie specyfikacj kodu RAM, 
+krok po kroku. 
+skupi wyłcznie na pisaniu programów w kodzie RAM i ich uruchamianiu oraz ledzeniu 
+programu było przyjemne i bezproblemowe, dziki czemu uytkownik bdzie mógł si 
+działanie Maszyny RAM. Omówimy szczegółowo kady komponent, by korzystanie z 
+Nastpnie  zajmiemy  si  obsług  zaimplementowanej  aplikacji,  symulujcej 
+liczy złoono czasow i pamiciow dla wykonywanych programów. 
+omawiajc jej wszystkie składowe, opisujc kod RAM oraz sposób, w jaki bdziemy 
+W pierwszych trzech rozdziałach zajmiemy si pełn specyfikacj Maszyny RAM, 
+zagadnienia zostały omówione w niniejszej pracy. 
+nosi  jzyk  programowania  dla  maszyny  RAM),  autor  przedstawi  pokrótce,  jakie 
+ z programowaniem w kodzie RAM (tak nazw 
+ Zanim rozpoczniemy przygod
+autor postanowił temu zaradzi i tak oto powstała nowa wersja Maszyny RAM. 
+dziedzin informatyki, jak jest programowanie. Zbierajc te niezbyt optymistyczne fakty 
+Odbijało si to na spadku atrakcyjnoci i szansy zainteresowania młodych słuchaczy 
+oprogramowania podczas lekcji, przez co zajcia musiały si odbywa jedynie w teorii. 
+skutecznie  zniechcało  zarówno  uczniów  jak  i nauczycieli  do  uywania  takiego 
+implementacji  na  nowej  klasy  komputerach  sprawiało  czasami  spore  problemy,  co 
+wersji   Maszyny   RAM   skłonił   autora   równie   fakt,   i   uruchomienie   starszych 
+pracy jest dołczony pełny kod ródłowy programu) o nowe elementy. Do napisania nowej 
+spora szansa, e zachci to do rozwinicia aktualnej implementacji maszyny RAM (do 
+aktualnie w czołówce najczciej uywanych jzyków programowania na wiecie, istnieje 
+systemów operacyjnych, takich jak MS Windows® czy Linux. Poniewa jzyk C# jest 
+.NET) uyta do napisania programu czyni go przenaszalnym na wikszo popularnych 
+konfiguracji wielu elementów na potrzeby uytkownika. Take sama technologia (C# i 
+odwieony   wygld   programu   czy   atrakcyjna   wizualizacja   wraz   z   moliwoci 
+roku), lecz pomysł napisania nowej wersji niesie ze sob co najmniej kilka zalet jak: 
+„ Maszyna RAM”  autorstwa prof. Krzysztofa Lorysia i dr Przemysławy Kanarek z 1990 
+W  przeszłoci  powstało  wiele  implementacji  maszyny  RAM  (midzy  innymi 
+zdolnoci programowania. 
+wyrabia  umiejtnoci  logicznego  mylenia,  które  mog  by  przydatne  w  rozwijaniu 
+Maszyna RAM jest modelem oblicze, który jest łatwy do opanowania i jednoczenie 
+słuchaczom  na  lekcjach  informatyki  wprowadzajcych  do  wiata  programowania. 
+edukacyjnego,  którego  brak  powoduje  trudnoci  w  przekazywaniu  wiedzy  młodym 
+           Realizacja niniejszej pracy jest odpowiedzi na luk w dziedzinie oprogramowania 
+ 
+Wstp 
+----------------Page (4) Break----------------
+                                                                       6 
+ 
+uzupełnieniem do wiedzy zawartej w niniejszej pracy. 
+i niedeterministyczn maszyn Turinga oraz klasy P i NP, który moe by ciekawym 
+Na  kocu  pracy  został  umieszczony  dodatek  omawiajcy  deterministyczn 
+----------------Page (5) Break----------------
+                                                                       7 
+logiczne, funkcje matematyczne czy operacje na znakach, nie wpływajc przy tym na 
+Oczywicie, zbiór instrukcji moemy wzbogaci o dowolne inne instrukcje, jak operacje 
+Kada instrukcja kodu RAM składa si z dwóch czci - kodu operacji i adresu. 
+ 
+Specyfikacja kodu RAM 
+  
+do wykonania). 
+łcznej liczby linii programu (czyli w sytuacji, gdy nie ma ju nastpnych linii programu 
+wskazujcy na kolejn lini programu, która ma zosta wykonana, wykracza poza zakres 
+Program jest wykonywany do momentu napotkania instrukcji stopu, lub gdy numer 
+które pozwalaj skoczy do dowolnej linii programu (oznaczonej odpowiedni etykiet). 
+wykonywanej. Reguł t łami jednak instrukcje skoku warunkowego i bezwarunkowego, 
+linii programu przygotowanej do wykonania jest o jeden wikszy, ni numer linii aktualnie 
+oraz numer kolejnej, która zostanie wykonana jako nastpna. Zazwyczaj numer kolejnej 
+niej zawartej. Procesor dodatkowo pamita numer aktualnie wykonywanej linii programu 
+jego funkcja sprowadza si do wczytania kolejnej linii programu i wykonania instrukcji w 
+Procesor jest najwaniejsz jednostk Maszyny RAM. W kadym kroku maszyny, 
+pamici (co zapobiega napisaniu samo-modyfikujcego si programu). 
+rozpoznaje maszyna. Program jest osobn czci maszyny i nie jest przechowywany w 
+nich  moe  by  pusta  lub  zawiera  jedn  z  kilkunastu  dostpnych  instrukcji,  któr 
+Program dla Maszyny RAM składa si z jednej lub wielu linii programu, a kada z 
+operacja zakoczy si niepowodzeniem (i maszyna natychmiast si zatrzymuje). 
+wejciowej, z tym, e gdy maszyna spróbuje odczyta liczb z komórki, która jest pusta, 
+przesuwa  si  nad  kolejn  komórk  tamy.  Podobnie  wyglda  sytuacja  dla  tamy 
+wyjciowej dokonuje odpowiedniego zapisy do komórki, nad któr si aktualnie znajduje i 
+pierwsz komórk tamy. Gdy nastpuje próba zapisania liczby na tam, głowica tamy 
+odczytu i zapisu na odpowiednich tamach słu głowice, pocztkowo ustawione nad 
+mieci jedn, dowoln liczb całkowit. Obie tamy maj nieskoczon długo. Do 
+tama, podobnie jak pami maszyny, jest podzielona na komórki, gdzie kada komórka 
+Maszyna RAM posiada dwie tamy: jedn do odczytu i jedn do zapisu. Kada 
+odczytania tej wartoci jest błdn operacj. 
+uruchomieniem programu, warto kadej komórki pamici jest nieokrelona i próba 
+przyjmujc    jakikolwiek    system    liczbowy,    np.:    binarny).    Pocztkowo,    przed 
+na jej wielko (wielko liczby rozumiemy  jako liczb cyfr, z których si składa, 
+Równie liczba, która moe by przechowywana w kadej z komórek, nie posiada limitu 
+innymi przy operacjach arytmetycznych. Liczba komórek pamici jest nieskoczona. 
+komórka, jest zwana take akumulatorem. Jest ona pomocnicz komórk, uywan midzy 
+Komórki s ponumerowane liczbami całkowitymi, poczwszy od zera. Pierwsza, zerowa 
+Pami jest seri komórek, a kada z nich mieci dowoln liczb całkowit. 
+tamy wyjciowej, programu oraz procesora. 
+Maszyna RAM składa si z nastpujcych elementów: pamici, tamy wejciowej, 
+odpowiedni dodatek znajdujcy si w kocowej czci pracy. 
+zrozumie  ide  maszyny  RAM,  jednak  dla  zainteresowanych  czytelników  powstał 
+szczegółowo  omawia.  Teoria  zwizana  z  maszyn  Turinga  nie  jest  wymagana,  by 
+chociaby z szacunku do historii informatyki, ale nie na tyle istotna, by j w tym miejscu 
+a mianowicie  modelu  deterministycznej  maszyny  (DTM).  Informacja  ta  jest  wana 
+           Maszyna  RAM  bazuje  na  modelu  jednej  z  abstrakcyjnych  maszyn  Turinga, 
+ 
+Maszyna RAM 
+----------------Page (6) Break----------------
+                                                                       8 
+v( =x )     x,                   Liczba całkowita x 
+Uycie        Warto       Opis 
+ 
+Aby okreli sens instrukcji, najpierw zdefiniujemy v( a ), czyli warto operandum a: 
+które s instrukcjami skoku bezwarunkowego (JUMP) i warunkowego (JGTZ, JZERO). 
+pn instrukcj), chyba e k-t instrukcj jest JUMP, JGTZ lub JZERO, 
+k + 1 (tj. na nast
+ Po wykonaniu k-tej instrukcji P, indeks lokalizacji jest automatycznie ustawiany na 
+∑    tama wyjciowa jest pusta.  
+∑    indeks lokalizacji jest nastawiony na pierwsz instrukcj P, 
+∑    m( x ) = ? (warto nieokrelona) dla kadego x  0, 
+komórce pamici o indeksie x. Pocztkowo, przed uruchomieniem programu P mamy: 
+wykonania. Funkcja m jest map pamici - m( x ) jest liczb całkowit umieszczon w 
+zbiorze liczb całkowitych i indeksu lokalizacji, który ustala indeks nastpnej instrukcji do 
+przekształcenia m okrelonego na zbiorze nieujemnych liczb całkowitych o wartociach w 
+Moemy  teraz  zdefiniowa  sens  programu  P  przy  pomocy  dwóch  wielkoci: 
+stosunku do np.: asemblera dla procesora x86. 
+bez szkody dla funkcjonalnoci jzyka) lista rozkazów kodu RAM jest szczuplejsza, w 
+list zauway tu pewnie podobiestwo do kodu RAM. Jednak dla utrzymania prostoty (ale 
+niej styczno z jzykiem asembler, analizujc powysz 
+            Osoba, która miała wcze
+HALT                 Etykieta 
+JZERO                Etykieta 
+JGTZ                  Etykieta 
+JUMP                  Etykieta 
+WRITE               Operandum 
+READ                 Operandum 
+DIV                     Operandum 
+MULT                 Operandum 
+SUB                    Operandum 
+ADD                   Operandum 
+STORE               Operandum 
+LOAD                 Operandum 
+Kod operacji     Adres 
+ 
+Instrukcje kodu RAM 
+ 
+wyszego rzdu, które s wystarczajce do napisania dowolnego programu. 
+stosowane przez praktycznie wszystkie jzyki programowania, zarówno te niszego jak i 
+zastosowa adresowanie bezporednie, lub adresowanie porednie. S to trzy techniki 
+szego zapisu wynika, e obok kodu operacji, moemy poda liczb, 
+            Z powy
+komórki o indeksie x (wymóg: x >= 0, y>=0) 
+^x          Liczba znajdujca si w komórce o indeksie y, gdzie y jest wartoci 
+x           Liczba znajdujca si w komórce pamici o indeksie x (wymóg: x >= 0) 
+=x          Liczba całkowita x 
+Zapis            Znaczenie 
+ 
+Operandum moe mie nastpujcy zapis (tabelka poniej). 
+zmian rzdu złoonoci programów. Adres instrukcji dzielimy na operandum i etykiet. 
+----------------Page (7) Break----------------
+                                                                       9 
+ustawiany na kolejn instrukcj 
+przeciwnym razie indeks ten jest 
+instrukcj z etykiet e. W                akumulatora jest wiksza od zera 
+lokalizacji jest nastawiany na          etykiet e pod warunkiem, e warto 
+JGTZ e             Jeeli m( 0 ) > 0, indeks                  Skok do linii programu zawierajcej 
+etykiet e. 
+jest nastawiany na instrukcj z 
+kolejnej instrukcji do wykonania    etykiet e 
+JUMP e            Licznik wskazujcy na numer         Skok do linii programu zawierajcej 
+si aktualnie głowica 
+przesuwa si na kolejn pozycj 
+wyjciowej, nad któr znajduje 
+tamy wyjciowej. Głowica tamy 
+v( a )  aktualna komórka tamy 
+WRITE a                                                                    Zapis liczby v( a ) na aktualn komórk 
+                                                         kolejn komórk tamy 
+aktualnie głowica                             operacji głowica tamy przesuwa si nad 
+tamy wejciowej, nad któr jest     i umieszczenie go w m( m( x ) ). Po tej 
+READ ^x          m( m( x ) )  warto komórki       Odczytanie wartoci z tamy wejciowej 
+kolejn komórk tamy. 
+aktualnie głowica                             operacji głowica tamy przesuwa si nad 
+wejciowej, nad któr jest               i umieszczenie go w m( x ). Po tej 
+READ x            m( x )  warto komórki tamy    Odczytanie wartoci z tamy wejciowej 
+składowany w akumulatorze 
+najbliszej liczby całkowitej, jest 
+v( a ), a wynik, zaokrglony w dół do 
+         
+m( 0 )    m( 0 ) / v( a )   
+DIV a                                                                         Dzielenie wartoci akumulatora przez 
+wynik jest składowany w akumulatorze 
+MULT a           m( 0 )  m( 0 ) × v( a )                   Mnoenie wartoci akumulatora i v( a ), a 
+akumulatorze 
+akumulatora, a wynik jest składowany w 
+SUB a               m( 0 )  m( 0 ) - v( a )                    Odejmowanie v( a ) od wartoci 
+akumulatorze 
+v( a ), a wynik jest składowany w 
+ADD a              m( 0 )  m( 0 ) + v( a )                   Sumowanie wartoci akumulatora i 
+m( m( x ) ) 
+STORE ^x        m( m( x ) )  m( 0 )                         Kopiowanie liczby z akumulatora do 
+m( x ) 
+STORE x          m( x ) m( 0 )                                 Kopiowanie liczby z akumulatora do 
+akumulatora, czyli m( 0 ) 
+LOAD a           m( 0 )  v( a )                                 Kopiowanie liczby z v( a ) do 
+ Instrukcja       Znaczenie                                        Opis słowny 
+podstawi: =x, x lub ^x): 
+Oto  opis  poszczególnych  instrukcji  kodu  RAM  (za  operandum  a  moemy 
+programu, chyba, e w opisie jest zaznaczone inaczej. 
+przyjmujemy, e po jej wykonaniu indeks lokalizacji jest ustawiany na kolejn instrukcj 
+osobnym   wierszu.   W   kadym   opisie   kolejnej   instrukcji   (kolumna:   Znaczenie) 
+które nie spełniaj tego warunku, kady z dopuszczalnych przypadków zostanie opisanie w 
+ posiada kad z powyszych trzech postaci operandum. Dla pozostałych instrukcji, 
+mog
+ Zdefiniowanie v( a ), pozwala nam na krótszy i prostszy zapis dla tych instrukcji, które 
+v( ^x )      m( m( x ) )     Adresowanie porednie 
+v( x )       m( x ),           Adresowanie bezporednie 
+----------------Page (8) Break----------------
+                                                                      10 
+lcost( x ) = 1 dla x = 0. 
+      
+lcost( x ) =   log | x |  + 1 dla x  0, oraz 
+ 
+Zdefiniujmy funkcj lcost( x ): 
+miarodajne dla programów operujcych na liczbach o dowolnej wielkoci). 
+Kryterium kosztu logarytmicznego uwzgldnia długo operandum (co jest bardziej 
+pamici.  
+wymaga  jednej  jednostki  czasu,  natomiast  kada  komórka  pamici,  jednej  jednostki 
+Kryterium  kosztu  zuniformizowanego  mówi,  e  kada  instrukcja  kodu  RAM 
+oraz logarytmiczny.  
+Dla programów RAM definiujemy dwa takie kryteria kosztu: zuniformizowany 
+bdcej jej operandum (zalenie od wybranego kryterium, o którym poniej). 
+czynnikiem, który wpływa na zuywany czas dla danej instrukcji, jest długo liczby 
+na wykonanie programu, musimy zdefiniowa go dla kadej instrukcji z osobna. Głównym 
+zuytym na wykonywanie programu, dla tych danych. Aby móc policzy czas zuywany 
+jest funkcj f( n ), która dla wszystkich danych rozmiaru n jest maksymalnym czasem 
+Złoono czasowa najgorszego przypadku programu napisanego w kodzie RAM 
+oczekiwan.  
+najlepszej złoonoci najgorszego przypadku niekoniecznie musi mie najlepsz złoono 
+przy okazji ma bardziej uniwersalne zastosowanie, jednake pamitajmy, e algorytm o 
+trywialnym zadaniem. Aktualnie skupimy si na złoonoci najgorszego przypadku, która 
+takiego  szacowania  jest  pewne  załoenie  o  rozkładzie  danych,  co  nie  zawsze  jest 
+przewanie trudniejsze od oszacowania złoonoci najgorszego przypadku. Warunkiem do 
+wówczas złoonoci oczekiwan. Oszacowanie złoonoci oczekiwanej algorytmu jest 
+wemiemy redni złoono dla wszystkich danych pewnego rozmiaru, nazywamy j 
+złoono  t  nazywa  si  złoonoci  najgorszego  przypadku.  Jeeli  za  złoono 
+danych, wemiemy złoono maksymaln dla wszystkich danych tego rozmiaru, to 
+pamiciowa w stosunku do rozmiaru danych. Jeeli za złoono, dla pewnego rozmiaru 
+Miarami, którymi bdziemy mierzy jako algorytmu to jego złoono czasowa i 
+analizujc kolejne algorytmy? Ten rozdział jest odpowiedzi na te pytania. 
+okreli, który z nich jest bardziej optymalny oraz jakie kryterium mamy wzi pod uwag 
+algorytm, zapewne chcielibymy wybra ten lepszy. Tutaj zadajemy sobie pytanie: jak 
+najpierw skonstruowa algorytm. Jeli jednak posiadamy do dyspozycji wicej ni jeden 
+ programu komputerowego obliczy jaki problem, naley 
+            Gdy chcemy, za pomoc
+Złoono obliczeniowa programów RAM 
+ 
+ 
+czciowe (czyli moe by nieokrelone dla pewnych danych wejciowych). 
+moe si zatrzyma (moemy napisa program, który si zaptli), przekształcenie jest 
+wejciowych w tamy wyjciowe. Skoro nie dla wszystkich tam wejciowych program 
+Ogólnie mówic, program napisany w kodzie RAM definiuje przekształcenie tam 
+ 
+HALT                                                                        Wykonywanie programu koczy si. 
+programu. 
+ustawiany na kolejn instrukcj 
+przeciwnym razie indeks ten jest 
+instrukcj z etykiet e. W                akumulatora jest równa zeru 
+lokalizacji jest nastawiany na          etykiet e pod warunkiem, e warto 
+JZERO e           Jeeli m( 0 ) = 0, indeks                   Skok do linii programu zawierajcej 
+programu. 
+----------------Page (9) Break----------------
+                                                                      11 
+złoonoci czasowe i pamiciowe zalenie od tego, czy uyje si do szacowania kosztu 
+Z  powyszego  jasno  wynika,  e  dany  program  moe  mie  całkowicie  róne 
+lcost). 
+komórki pamici), poniewa dla takiego przypadku koszt wynosi 0 (patrz: definicja funkcji 
+nieokrelon  (czyli  tak,  jak  posiadaj  przed  uruchomieniem  programu  wszystkie 
+nie  bdzie  nam  przeszkadzało,  e  wikszo  komórek  bdzie  zawierała  warto 
+była umieszczona w komórce pamici o indeksie x podczas oblicze. Przy obliczaniu sumy 
+x                                                                                                          x
+lcost( i  ) po wszystkich komórkach pamici, gdzie i  jest najwiksz liczb całkowit, jaka 
+Logarytmiczn  złoono  pamiciow  programu  RAM  definiujemy  jako  sum 
+lcost( x ) + lcost( m( x ) ) + lcost( m( m( x ) ) ).  
+ostatecznym kosztem, jaki naley przypisa instrukcji MULT ^x, jest lcost( m( 0 ) ) + 
+Skoro instrukcja MULT ^x mnoy liczb całkowit m( m( x ) ) przez m( 0 ), widzimy, e 
+czasu lcost( m( x ) ). Z kolei czytanie zawartoci rejestru m( x ) kosztuje lcost( m( m( x ) ) ). 
+odczyta m( x ) (zawarto komórki o indeksie x) oraz odszuka rejestr m( x ) potrzeba 
+rozpozna liczb całkowit x przez maszyn, potrzeba czasu lcost( x ). Nastpnie, aby 
+MULT ^x. Najpierw musimy ustali koszt, gdzie t( a ) jest kosztem operandum a. Aby 
+zobrazowa obliczanie kosztu, posłumy si przykładem i policzmy koszt dla instrukcji 
+instrukcji  jest  proporcjonalny  do  długoci  operandów  tych  instrukcji.  Aby  lepiej 
+Kryterium kosztu logarytmicznego opiera si na załoeniu, e koszt wykonania 
+mog zawiera dowolnie due liczby całkowite. 
+     
+w komórce pamici wymaga   log i    + 1 bitów. Przypomnijmy, e komórki pamici, 
+ej tabelce uwzgldnione jest, e reprezentacja liczby całkowitej i 
+ W przedstawionej powy
+HALT                       1 
+JZERO e                   lcost( m( 0 ) ) 
+JGTZ e                      lcost( m( 0 ) ) 
+JUMP e                     1 
+WRITE a                  t( a ) 
+READ ^x                  lcost( input ) + lcost( x ) + lcost( m( x ) ) 
+READ x                    lcost( input ) + lcost( x ) 
+DIV a                        lcost( m( 0 ) ) + t( a ) 
+MULT a                    lcost( m( 0 ) ) + t( a ) 
+SUB a                       lcost( m( 0 ) ) + t( a ) 
+ADD a                      lcost( m( 0 ) ) + t( a ) 
+STORE ^x                 lcost( m( 0 ) ) + lcost( x ) + lcost( m( x ) ) 
+STORE x                  lcost( m( 0 ) ) + lcost( x ) 
+LOAD a                    t( a ) 
+Instrukcja                Koszt 
+ 
+RAM, dla kadego z wariantów operandum: 
+c odpowiednie narzdzia, moemy teraz opisa koszt kadej z instrukcji kodu 
+  Posiadaj
+^x                lcost( x ) + lcost( m( x ) ) + lcost(m ( m( x ) ) ) 
+x                 lcost( x ) + lcost( m( x ) ) 
+=x                lcost( x ) 
+Operandum a          Koszt t(a) 
+ 
+liwych postaci operandum a. 
+ Dla krótszego zapisu zdefiniujemy sobie t(a) dla trzech mo
+lcost( x ) = 0 dla x o nieokrelonej wartoci 
+----------------Page (10) Break----------------
+                                                                      12 
+  
+moe by koszt logarytmiczny (w szczególnoci –  analizujc programy w kodzie RAM). 
+typu int). W przeciwnym razie, dla realistycznej analizy złoonoci, bardziej właciwy 
+zuniformizowany (np.: analizujc program napisany w jzyku C, uywajcy zmiennych 
+jedn jednostk pamici lub po prostu: stał liczb jednostek, wówczas stosujemy koszt 
+zuniformizowanego, czy logarytmicznego. Jeeli zakładamy, e kada liczba zajmuje 
+----------------Page (11) Break----------------
+                                                                      13 
+magistersk (odpowiednio pliki „ dotnetfx_pl.exe”  oraz „ dotnetfx_en.exe” ), a pozostałe 
+zainstalowa.  Wersja  polska  i  angielska  została  dostarczona  na  płycie  CD  z  prac 
+w  systemie  zainstalowanego  Framework’ a  .NET  w  wersji  1.1,  naley  go  wczeniej 
+take dostpny na stronie autora (pod wskazanym adresem powyej). Jeli nie posiadamy 
+RAMMachineSetup.msi, który naley uruchomi, by rozpocz instalacj. Plik ten jest 
+ prac znajduje si plik instalacyjny 
+            Na płycie CD dostarczonej wraz z niniejsz
+Instalacja programu 
+ 
+ 
+http://www.szkup.com 
+bdzie zawsze dostpna pod adresem: 
+moliwoci zgłaszane błdy bd poprawiane, a poprawiona, najnowsza wersja programu 
+uytkowników,  autor  jest  otwarty  na  wszelkie  zgłoszenia  w  tej  sprawie.  W  miar 
+ukryte   błdy,   dlatego   te   w   przypadku   jego   odnalezienia   przez   potencjalnych 
+Autor jednak bierze pod uwag fakt, i w programie mog si znajdowa jeszcze jakie 
+dwóch zawodowych testerów, co pozwala mie nadziej, e jest dostatecznie stabilny. 
+Program „ Maszyna RAM”  był intensywnie testowany przez trzy osoby, w tym 
+problemem. 
+sprzt z procesorem co najmniej 500Mhz, cho i wolniejszy take nie byłby specjalnym 
+Wymagania co do prdkoci komputera s tutaj minimalne, wystarczy bowiem dowolny 
+operacyjny, na którym program bdzie uruchamiany. Ale s to jedyne ograniczenia. 
+co do podanych powyej wielkoci, jednak takie ograniczenia nakłada sprzt i system 
+przypadku omawianego tutaj programu. Autor programu nie nałoył adnych ogranicze 
+powoduje, e aden realny komputer nie okiełzna takich wymaga.  Tak te jest w 
+pamici, liczb komórek tamy wejciowej i wyjciowej oraz wielkoci samych liczb, co 
+           Abstrakcyjny model Maszyny RAM nie posiada ograniczenia na liczb komórek 
+oprogramowania, by program był maksymalnie intuicyjny w obsłudze. 
+temat HCI (Human Computer Interaction) oraz o obowizujce wiatowe standardy pisania 
+akcji, któr mona wykona w programie, jest zaprojektowana w oparciu o wiedz na 
+uytkowania, co pozwoli na szybkie nauczenie si jego obsługi. Moliwa najwiksza ilo 
+uruchamiania programów napisanych w kodzie RAM. Jest napisany z myl o wygodzie 
+tej  samej  nazwie.  Program,  w  ogólnym  zarysie,  słuy  do  pisania,  testowania  i 
+           Program „ Maszyna RAM”  jest implementacj abstrakcyjnego modelu oblicze o 
+uruchamia na systemie Linux wprost, bez jakiejkolwiek uprzedniej rekompilacji kodu. 
+twórców  projektu  MONO,  programy  napisane  w powyszej  technologii  moemy 
+systemie  Linux  (patrz:  Project  MONO  -  www.mono-project.com).  Wedle  zapewnie 
+uruchamiania  takich  programów  na  innych  systemach  operacyjnych,  midzy  innymi 
+obsług  programów  opartych  na  .NET,  obecnie  trwaj  prace  nad  umoliwieniem 
+systemów  operacyjnych  z  rodziny  MS  Windows®,  które  jako  pierwsze  udostpniły 
+niezbdnych  do  uruchamiania  programów  napisanych  w  technologii  .NET.  Oprócz 
+i udostpniany w wielu wersjach jzykowych. W/w framework jest zbiorem bibliotek 
+w wersji  1.1.  Pakiet  ten  jest  dostpny  nieodpłatnie  na  stronie  www.microsoft.com 
+programów istnieje na systemach operacyjnych z zainstalowanym Framework’ iem .NET 
+w technologii Microsoft® .NET. Moliwo uruchamiania napisanych w tej technologii 
+zyku  C# 
+            „ Maszyna  RAM”   jest  programem  komputerowym,  napisanym  w  j
+Informacje wstpne 
+ 
+Obsługa programu „ Maszyna RAM”  
+----------------Page (12) Break----------------
+                                                                      14 
+ 
+Rysunek 1 
+ 
+ 
+którym s przechowane przykładowe programy napisane w kodzie RAM. 
+do uruchomienia programu „ Maszyna RAM” , natomiast druga jest skrótem do folderu, w 
+prawidłowo, na pulpicie zostan dodane dwie ikonki (Rysunek 5). Pierwsza z nich słuy 
+koczymy instalacj i program jest gotowy do uruchomienia. Jeli instalacja przebiegła 
+pojawi  si  ostatnie  okno  instalacji  (Rysunek  4).  Po  wciniciu  przycisku  „ Close”  
+przechodzimy do kolejnego okna (Rysunek 3). Ponownie naciskamy „ Next” , po czym 
+którzy posiadaj konta na danym komputerze. Nastpnie naciskamy przycisk „ Next”  i 
+by zainstalowany tylko dla aktualnie zalogowanego uytkownika, czy dla wszystkich, 
+oprogramowania w katalogu „ Program Files” . Wybra moemy take, czy program ma 
+zmieni  t  ciek,  gdy  na  danym  komputerze  nie  ma  praw  do  instalowania 
+Pocztkowa  propozycja  bdzie  wywietlona  przez  instalator,  jednak  czasami  naley 
+2). Moemy teraz wybra ciek do katalogu, pod któr zostanie zainstalowany program. 
+(Rysunek 1). Naciskamy przycisk „ Next”  i przechodzimy do nastpnego okna (Rysunek 
+           Po uruchomieniu pliku instalacyjnego otrzymamy nastpujce okno na ekranie 
+NET Framework 1.1). 
+wersje jzykowe mona bezpłatnie pobra ze strony www.microsoft.com (słowa kluczowe: 
+----------------Page (13) Break----------------
+                                                                      15 
+ 
+Rysunek 3 
+ 
+ 
+Rysunek 2 
+ 
+----------------Page (14) Break----------------
+                                                                      16 
+ 
+okienkowych). 
+powszechnie uywana nazwa w stosunku do graficznych komponentów w aplikacjach 
+poniszych  rozdziałach.  Składniki  te  bdziemy  dalej  nazywali  kontrolkami  (jest  to 
+ułatwi  prac  z  programem.  Kady  ze  składników  zostanie  opisany  szczegółowo  w 
+(5). Wszystkie składniki zostały w taki sposób umieszczone na ekranie, by maksymalnie 
+procesora (1), pamici (2), tamy wejciowej (3), edytora programu (4) i tamy wyjciowej 
+ z piciu głównych składników (Rysunek 6): 
+            Program „ Maszyna RAM”  składa si
+ Składowe edytora „ Maszyny RAM”  
+ 
+Rysunek 5 
+ 
+ 
+Rysunek 4 
+ 
+----------------Page (15) Break----------------
+                                                                      17 
+warto dowolnego z pól do schowka (np.: za pomoc myszki i menu kontekstowego –  
+przylegajcej do prawej strony kontrolki procesora i pamici. Mona take skopiowa 
+napis  mona  regulowa  wielko  okna  lub  zmienia  połoenie  pionowej  podziałki 
+polach, pojawi si jedynie jej pocztek zakoczony znakiem trzykropka. Aby ujrze pełny 
+„ Argument” . Jeli nazwa rozkazu lub argumentu bdzie zbyt długa, by si zmieci w w/w 
+widoczny w polu na lewo od napisu „ Instruction” , a argument w polu na lewo od napisu 
+jest to włczone, operacja ta bdzie poprzedzona odpowiedni animacj. Rozkaz bdzie 
+maszyna ładuje rozkaz oraz jego adres (argument) do procesora. Jeli w opcjach programu 
+adnych danych. Gdy uruchomimy program, tu przed wykonaniem danej linii kodu, 
+tkowo, przed uruchomieniem programu w kodzie RAM, kontrolka ta nie zawiera 
+ Pocz
+Rysunek 7 
+ 
+ 
+wywietlania aktualnie wykonywanego rozkazu oraz jego adresu.  
+ kontrolk w programie (Rysunek 7). Słuy do 
+            Kontrolka procesora jest najprostsz
+Kontrolka procesora 
+  
+Rysunek 6 
+ 
+----------------Page (16) Break----------------
+                                                                      18 
+ 
+góry kontrolki) bdzie ta, przed chwil podana przez uytkownika. 
+kontrolka pamici przewinie nam widok w taki sposób, e pierwsz widoczn komórk (u 
+9). Moemy poda dowolny adres komórki pamici i nacisn przycisk „ Go!” , po czym 
+komórki pamici. Gdy go naciniemy, pojawi si nam okno „ Show Address... ”  (Rysunek 
+	rodkowym  przyciskiem  („ Show  Address... ” )  moemy  szybko  przej  do  dowolnej 
+automatyczne przewijanie o kolejne komórki, a do momentu zwolnienia przycisku. 
+widok o jeden adres w gór/dół. Dłusze przytrzymanie wcinitego przycisku spowoduje 
+na dole kontrolki. Przyciskami po lewej i prawej stronie (z ikonkami strzałek) przewijamy 
+jednak mamy dostp do dowolnego adresu. Do tego celu słu trzy przyciski znajdujce si 
+Kontrolka pamici pokazuje jedynie pewien wycinek pamici maszyny RAM, 
+uytkownik łatwiej bdzie mógł si zorientowa w zawartoci pamici.  
+pamici znajduje si liczba, pole to zmieni kolor na biały. Dziki takiej manipulacji 
+wywietlaj symbol „ ?”  oraz s zaznaczone kolorem szarym. Jeli w danej komórce 
+Pola ukazujce wartoci komórek pamici, które posiadaj warto nieokrelon, 
+ 
+Rysunek 8 
+ 
+ 
+zasłuyła na to, by lepiej j uwidoczni. 
+poniewa jest uywana przez wikszo operacji do oblicze/porówna i dlatego te 
+inny kolor, ni pozostałe komórki. Komórka ta –  zwana akumulatorem –  jest szczególna, 
+(indeks) komórki pamici oraz jej zawarto. Komórka o adresie zero jest zaznaczona na 
+RAM. Posiada dwie kolumny: „ Address”  i „ Value” , które odpowiednio wywietlaj adres 
+ci (Rysunek 8) pozwala nam ledzi zawarto pamici maszyny 
+            Kontrolka pami
+Kontrolka pamici 
+  
+wykonaniu programu, w/w pola s czyszczone. 
+poprzednia zawarto pól rozkazu i argumentu jest zastpowana nowymi wartociami. Po 
+Notepad  czy  MS  Word®.  Gdy  program  ładuje  kolejn  instrukcj  do  wykonania, 
+opcja „ Copy” ) i wklei jego zawarto do dowolnego innego edytora tekstowego, np.: 
+----------------Page (17) Break----------------
+                                                                      19 
+ 
+Rysunek 10 
+ 
+ 
+ 
+powoduje, e kontrolka pamici jest przejrzysta i czytelna. 
+problemu  z  odrónieniem  osobnych,  cigłych  bloków  pamici  maszyny  RAM,  co 
+cieniowanie  komórek  z  adresami  pamici.  Dziki  temu  uytkownik  nie  bdzie  miał 
+Teraz, analizujc rysunki Rysunek 10 i Rysunek 11, wida jak bardzo istotne jest 
+załaduj do akumulatora). 
+300, nastpnie znaleziona tam warto niech bdzie adresem do komórki, której warto 
+widok pamici po wykonaniu instrukcji: LOAD ^300 (czyli: zajrzyj do komórki o adresie 
+naley pokaza trzy komórki pamici. Na kolejnym obrazku (Rysunek 11) jest pokazany 
+W przypadku adresowania poredniego sytuacja wyglda analogicznie, lecz tutaj 
+komórki o numerze 0 (akumulator) i 20 (Rysunek 10). 
+pamici pogrupuje nam widok w dwa cigłe bloki pamici, aby na raz widoczne były 
+(czyli: dodaj do zawartoci akumulatora warto komórki o adresie 20), wtedy kontrolka 
+instrukcja odwołujca si do argumentu poprzez adresowanie bezporednie, np.: ADD 20 
+komórki pamici biorce udział w danej operacji. Dlatego te, jeli wykonywana jest 
+automatycznie  dopasowuje  swój  widok  w  taki  sposób,  by  były  widoczne  wszystkie 
+Kontrolka   pamici   podczas   wykonywania   programu   w   kodzie   RAM, 
+stosujemy adresowanie bezporednie (Rysunek 10) lub porednie (Rysunek 11).  
+sposób cieniowania moe okaza si zbyteczny, ale spójrzmy jak jest to istotne, gdy 
+niebieskiego. W przypadku pokazywania przez kontrolk cigłego bloku pamici, taki 
+Rysunek 8, pola z adresami s odpowiednio cieniowane, poczwszy od koloru białego do 
+ zajmiemy kolumn z adresami komórek pamici. Jak widzimy na rysunku 
+            Teraz si
+Rysunek 9 
+ 
+----------------Page (18) Break----------------
+                                                                      20 
+Edytor programu 
+  
+Rysunek 13 
+ 
+ 
+Rysunek 12 
+ 
+ 
+przewinie widok tamy w taki sposób, by komórka ta była widoczna. 
+komórk tamy, która  nie jest widoczna na ekranie, kontrolka tamy automatycznie 
+tamy, symbolizujc nowe połoenie głowicy. Gdy pozycja głowicy przesuwa si nad 
+lub zapisywania (WRITE) wartoci na tam, strzałka ta przesunie si na kolejn komórk 
+pozycj głowicy tamy. Gdy program w kodzie RAM wykona instrukcj czytania (READ) 
+Przy  kadej  z  tam  widoczna  jest  strzałka  (Rysunek  6),  pokazujca  aktualn 
+liczb komórek, a do momentu zwolnienia przycisku.  
+kontrolce pamici, dłusze przycinicie przycisku spowoduje przewijanie o wiksz 
+przewijamy tam o jedn komórk w lewo/prawo. Tak jak w przypadku przycisków na 
+przewijamy  widok  tamy  do  pierwszej  komórki  tamy,  a  pozostałymi  przyciskami 
+słu  trzy  przyciski:  dwa  po  lewej  stronie  i jeden  po  prawej.  Pierwszym  po  lewej 
+uytkownikowi orientacj w pozycji tamy podczas nawigowania. Do nawigacji po tamie 
+numeracj, lecz pod spodem komórek tamy. Numeracja została wprowadzona, by ułatwi 
+uyte kolejne liczby całkowite poczwszy od 1). Tama wyjciowa take posiada tak 
+komórki. Nad kad komórk tamy wejciowej znajduje si jej numer (do numeracji s 
+Jednake kada z tam udostpnia uytkownikowi odczyt wartoci z dowolnej tamy i jej 
+wyjciowa  słuy  do  zapisywania  wyników  jedynie  przez  program  w  kodzie  RAM. 
+moliwo wprowadza dane jedynie do komórek tamy wejciowej, poniewa tamy 
+odpowiednie kontrolki, jak na rysunku Rysunek 12 oraz Rysunek 13. Uytkownik ma 
+my wejciowej i wyjciowej maszyny RAM w programie s 
+            Odzwierciedleniem ta
+Kontrolka tamy wejciowej i wyjciowej 
+  
+Rysunek 11 
+ 
+----------------Page (19) Break----------------
+                                                                      21 
+programu, jeli przejcie do poniszego wiersza nie jest moliwe (z powodu jego braku). 
+komórki po lewej w wierszu o jeden niej. W razie potrzeby, edytor doda nowy wiersz 
+jestemy w ostatniej edytowalnej komórce danego wiersza, kursor przechodzi do pierwszej 
+strzałek. Klawiszem Tab przechodzimy do nastpnej komórki na prawo. Jeli aktualnie 
+Do przemieszczania kursora w edytorze moemy uywa klawiszy: Tab, Enter oraz 
+gardła”  programu. 
+wykonanych linii). Kolumny te s szczególnie przydatne, gdy analizujemy tzw. „ wskie 
+wykonania  danej  linii  kodu  oraz  procent  wykonania  (w  stosunku  do  łcznej  liczby 
+klawiszowych (odpowiednio) Ctrl+6 i Ctrl+7. Kolumny te pokazuj odpowiednio licznik 
+powrotem schowa) za pomoc odpowiedniej opcji w menu lub za pomoc skrótów 
+Pocztkowo nie s widoczne, ale w kadym momencie mona je uwidoczni (lub z 
+Kolejne dwie kolumny to “ EC”  (execution counter) i “ EP”  (execution percent). 
+mona wpisa dowolny tekst (przewanie bdzie to komentarz do programu). 
+wybra jedn z nich. Natomiast kolumna „ Comment”  jest zwykł kolumn tekstow, gdzie 
+Klikajc na przycisk po prawej stronie pola mona take rozwin pełn list propozycji i 
+e podpowiadane s etykiety, które zostały wczeniej wpisane w kolumnie „ Label” . 
+skoku, pojawia si podpowied, tak samo jak w przypadku wpisywania instrukcji, z tym, 
+instrukcja HALT tego nie wymaga). Podczas wpisywania argumentu, jeli jest on etykiet 
+Nastpna  kolumna  („ Argument” )  słuy  do  podania  argumentu  instrukcji  (jedynie 
+klikn na przycisk, który si pojawia z prawej strony pola, gdzie wpisujemy instrukcj. 
+Moemy tak instrukcj wybra równie z rozwijanej listy. By j aktywowa, naley 
+podpowied, jeli wpisany cig znaków jest prefiksem jednej z dostpnych instrukcji. 
+instrukcji  maszyny  RAM.  Podczas  wpisywania  instrukcji  pojawi  si  automatyczna 
+z instrukcji skoku. Kolejna kolumna („ Instruction” ) słuy do wpisania jednej z dostpnych 
+do umieszczenia unikalnej etykiety dla danej linii, do której moe si odwoływa dowolna 
+Pierwsza kolumna pokazuje numer linii programu. Druga kolumna („ Label” ) słuy 
+ 
+Rysunek 14 
+ 
+ 
+EC, EP.  
+składa si łcznie z 7 kolumn o nazwach: LN, Label, Instruction, Argument, Comment, 
+Za pomoc edytora moemy napisa dowolny program w kodzie RAM. Edytor 
+ 
+----------------Page (20) Break----------------
+                                                                      22 
+Rysunek 15 –  kontrolka statystyk 
+ 
+ 
+instrukcji. 
+trakcie wykonywania programu, aktualne statystyki złoonoci oraz iloci wykonanych 
+Kontrolka statystyk (okno Complexity Report - Rysunek 15) pokazuje nam, w 
+ 
+Kontrolka statystyk złoonoci programu 
+  
+programu” . 
+zaznaczonego wiersza) oraz „ skopiuj do schowka a nastpnie wytnij zaznaczone wiersze 
+wiersze programu” , „ wklej wiersze programu znajdujce si w schowku”  (w miejscu 
+(odpowiednio): „ zaznacz wszystkie wiersze programu” , „ skopiuj do schowka zaznaczone 
+Ctrl+V i Ctrl+X, które działaj podobnie jak w typowych edytorach tekstu, a mianowicie 
+Zaimplementowana  jest  take  obsługa  skrótów  klawiszowych  Ctrl+A,  Ctrl+C, 
+Po tej operacji kursor pozostaje w nowo dodanym wierszu. 
+zostan przesunite o jeden wiersz do dołu, a tu nad nimi zostanie dodany nowy wiersz. 
+w miejscu, gdzie jest aktualnie kursor. Wiersze znajdujce si od pozycji kursora w dół, 
+Pomocny jest take klawisz Insert, za pomoc którego dodajemy jeden pusty wiersz 
+pierwotnych zmian za pomoc skrótu Ctrl+Y. 
+poprzednich stanów i nie zmodyfikujemy nic w programie, moemy z powrotem wróci do 
+cofamy si o jedn zmian. Jeli uyjemy tego skrótu, by cofn si do jednego z 
+wróci do dowolnego wczeniejszego stanu. Za pomoc skrótu klawiszowego Ctrl+Z 
+Podczas pisania programu, kada zmiana jest rejestrowana, dziki czemu, moemy 
+mieci si w całoci na ekranie. 
+znajdujcy si z prawej strony edytora przeznaczony do przewijania programu, gdy nie 
+w interesujc nas komórk, by przenie do niej kursor. Pomocny jest take suwak 
+naciskane. Oczywicie po edytorze moemy take nawigowa za pomoc myszki, klikajc 
+edytora.  Kierunek  przemieszczania  si  kursora  jest  zgodny  ze  strzałkami,  które  s 
+Klawiszami strzałek moemy z kolei dowolnie przemieszcza kursor po obszarze 
+kursor przechodzi do nowej linii edytora, do pierwszej komórki po lewej stronie wiersza. 
+jest nowy wiersz programu, tu pod tym, w którym znajduje si aktualnie kursor, nastpnie 
+Klawisz Enter działa podobnie jak w przypadku typowych edytorów –  tworzony 
+----------------Page (21) Break----------------
+                                                                      23 
+ 
+Rysunek 17- okno raportu kompilacji 
+ 
+ 
+programu okienko informacyjne z napisem Program is correct.  
+klawisza F7. Gdy program zostanie pozytywnie zweryfikowany, pojawi si na dole okna 
+poprawno. Mona to zrobi za pomoc odpowiedniej pozycji w menu lub za pomoc 
+  napiszemy  program  lub  jego  fragment  moemy  sprawdzi  jego 
+            Gdy  ju
+Weryfikacja, uruchamianie i ledzenie programu 
+  
+Rysunek 16 - belka z załadowanymi programami 
+ 
+  
+chowania. 
+prawej  górnej czci okna statystyk. T sam ikonk klikamy, by przywróci efekt 
+postaci belki. Jeli chcemy zablokowa efekt chowania, naley klikn ikonk pinezki w 
+przesuniciu myszki z powrotem na inne czci aplikacji, okno statystyk si zwinie do 
+z  nazw  okienka.  Po najechaniu  myszk  na  belk,  okno  statystyk  si  rozwinie.  Po 
+po prawej stronie głównego okna aplikacji, w taki sposób, e wida jedynie pionow belk 
+Pocztkowo, po uruchomieniu „ Maszyny RAM” , okno statystyk jest „ zaczepione”  
+naciskamy F3 lub odpowiedni opcj w menu programu. 
+kliknicie w ikonk krzyyka lub uycie klawisza F3. By ponowne pokaza okno statystyk 
+Gdy nie chcemy oglda statystyk programu, moliwe jest schowanie okna poprzez 
+samego algorytmu programu. Czyszczenie listy wywołujemy z poziomu menu programu. 
+momentu, np.: po wczytaniu danych z tamy wejciowej, by sprawdzi jedynie złoono 
+to  okaza  pomocne,  gdy  chcemy  zbada  złoono  programu  jedynie  od  pewnego 
+Istnieje take moliwo wyzerowania aktualnie pokazywanych statystyk. Moe si 
+zakładk na górnej czci okna (Rysunek 16). 
+pierwszy plan, by oglda jego statystyki, naley go wskaza, klikajc na odpowiedni 
+jest aktualnie aktywny (wywietlony na ekranie). Jeli chcemy przesun inny program na 
+program, napisany w kodzie RAM, kontrolka pokazuje statystyki jedynie dla tego, który 
+Kiedy program „ Maszyna RAM”  obsługuje na raz wicej ni jeden uruchomiony 
+uruchomienia programu. 
+który  mówi,  ile  razy  dana  instrukcja  została  wykonana  przez  maszyn  od  czasu 
+Instruction Count) to lista instrukcji, jakie potrafi wykonywa maszyna RAM oraz licznik, 
+znajdujcymi  si  we  wspomnianym  powyej  rozdziale.  Ostatnia  sekcja  (Executed 
+przedstawiony koszt zarówno logarytmiczny jak i jednostkowy, zgodnie z ustaleniami 
+Nastpna sekcja przedstawia koszt pamiciowy (Space Complexity), w której równie jest 
+obliczany zgodnie z załoeniami w rozdziale „ Złoono obliczeniowa programów RAM” . 
+która  pokazuje  koszt  logarytmiczny  oraz  zuniformizowany  (jednostkowy),  który  jest 
+Na samej górze okienka mamy sekcj złoonoci czasowej (Time Complexity), 
+ 
+----------------Page (22) Break----------------
+                                                                      24 
+komórki te s bardzo odległe od siebie, by pokaza je w jednym cigłym bloku pamici, 
+pokae nam wszystkie komórki pamici, które bior w tym udział. W razie potrzeby, gdy 
+dowolnej z komórek. Take przy adresowaniu bezporednim lub porednim kontrolka 
+Kolejno, kontrolka pamici take poinformuje nas o jakiejkolwiek zmianie w 
+Dziki temu uytkownik moe obserwowa ruchy głowicy na kadej z tam. 
+o połoeniu głowicy tamy) zostanie właciwie przesunita na nastpn komórk tamy. 
+kiedy maszyna uruchomi instrukcj READ lub WRITE odpowiednia strzałka (informujca 
+jakiejkolwiek zmianie, która jej dotyczy. Poczwszy od tamy wejciowej i wyjciowej: 
+wszystkie kontrolki znajdujce si na ekranie. Kada z nich informuje nas graficznie o 
+Podczas  ledzenia  programu  podczas  jego  działania  obserwowa  moemy 
+odpowiedniej opcji w menu. 
+jest  natychmiastowe  zatrzymanie  pracy  maszyny  za  pomoc  skrótu  Shift+F10  lub 
+kroku, tak jak w w/w opisanych trybach. W tym trybie, jak te w kadym innym, moliwe 
+słuy do wykonania programu w całoci, bez moliwoci ledzenia jego działania krok po 
+           Tryb uruchamiany za pomoc skrótu Shift+Ctrl+F5 („ Run Program at Full Speed” ) 
+dopiero po napotkaniu punktu kontrolnego, a nie po wykonaniu jednej instrukcji. 
+poprzez skrót Shift+F5. Jest te moliwe uyciu klawisza F5, by program zatrzymał si 
+instrukcj programu i zatrzymała si. Ponowne wykonanie kolejnej instrukcji jest moliwe 
+           Skrót klawiszowy Shift+F5 słuy do tego, aby maszyna wykonała tylko jedn 
+ponownym naciniciu F5. 
+działanie (podczas pracy krokowej), a wznowienie działania programu jest moliwe po 
+lub klawisza F9. Punkty zatrzymania bd miejscami, w którym program zatrzyma swoje 
+poprzez zaznaczenie co najmniej jednego wiersza i nacinicie odpowiedniej opcji w menu 
+uruchamiania, moemy w dowolnym wierszu ustawi punkt zatrzymania. Dokonuje si to 
+dym momencie pracy, czy to podczas pisania programu, czy te podczas jego 
+ W ka
+Rysunek 18 –  punkty zatrzymania programu (czerwone ikonki) 
+ 
+ 
+zatrzymania –  tzw. breakpoint’ em.  
+aktualnie  wykonywanego  wiersza  programu  napotka  wiersz  z  ustawionym  punktem 
+pracy  krokowej  -  zatrzymanie  wykonywania  nastpuje  automatycznie,  gdy  indeks 
+F5, Shift+F5 oraz Shift+Ctrl+F5. Klawisz F5 słuy do uruchomienia programu w trybie 
+zazwyczaj chcemy go uruchomi, by sprawdzi jego działanie. Do tego celu słu klawisze 
+           Po zweryfikowaniu poprawnoci napisanego (lub wczytanego z pliku) programu 
+przemieszcza po błdnych liniach programu i sprawnie je poprawia. 
+spowoduje zaznaczenie błdnej linii programu w edytorze. Dziki temu mona łatwo si 
+(ich opisów). Kliknicie myszk na dowolnym wierszu z opisem błdu na w/w licie 
+Jeli jednak znajd si jakiekolwiek błdy, to okienko to zostanie zapełnione list błdów 
+----------------Page (23) Break----------------
+                                                                      25 
+Import i Eksport 
+  
+programu (szczegółowo bdzie o tym poniej). 
+jak  i  kolorze  zabarwienia  mona  samemu  zdecydowa  za  pomoc  okna  z  opcjami 
+ si odpowiednio zabarwia 
+ O tym, czy podczas uruchamiania programu linie maj
+Rysunek 19 –  zabarwianie linii kodu podczas uruchamiania 
+ 
+ 
+dostosowania zabarwienia zalenie od czstoci wykonania danego wiersza.  
+jest  odpowiednio  przeskalowane,  by  była  dalej  zachowana  zasada  proporcjonalnego 
+jeden z wierszy osignie maksymalny próg zabarwienia, zabarwienie pozostałych wierszy 
+tak intensywnie, e uniemoliwiłoby to odczytanie jego zawartoci. Dodatkowo, gdy cho 
+pewne ograniczenie, które zapobiega zabarwieniu wierszy zupełnie na czerwono, a wic 
+zabarwiana, tym razem intensywniej, na kolor czerwony. Oczywicie jest tutaj nadane 
+Gdy dana linia zostanie wykonana po raz kolejny, odpowiednia linia ponownie jest 
+zostaje delikatnie zabarwiona na kolor czerwony. Dzieje si tak dla kadej wykonanej linii. 
+wprowadzona odpowiednia kolorystyka. Po wykonaniu kadej linii programu, linia ta 
+Dla lepszego ukazania linii programu, które s najczciej uruchamiane, została 
+spdza najwicej czasu na uruchamianie. 
+analizowa i znajdowa tzw. wskie gardła programu, a wic miejsc, gdzie maszyna 
+programie do danego momentu działania maszyny RAM. Dziki tym kolumnom moemy 
+ile razy dana linia kodu została wykonana na przestrzeni łcznej liczby wykonanych linii w 
+wykonana przez maszyn. Druga kolumna, EP (execution percent), pokazuje procentowo 
+bdzie kolumna EC (execution counter), która pokazuje, ile razy dana linia kodu została 
+programu posiada liczne cechy wspomagajce jego ledzenie. Po pierwsze, pomocna 
+Teraz moemy si zaj kontrolk edytora programu, która podczas wykonywania 
+powiconych włanie tej kontrolce (to samo si tyczy kontrolki procesora). 
+obsłudze kontrolki pamici, odsyłam czytelnika do jednego z powyszych rozdziałów 
+była widoczna dla uytkownika. By nie powtarza informacji o pozostałym zachowaniu i 
+kontrolka podzieli widok na odpowiedni ilo cigłych podbloków, tak by cała operacja 
+----------------Page (24) Break----------------
+                                                                      26 
+ 
+czwartej komórce: 
+wyeksportowanego stanu tamy wejciowej zawierajcej liczby jednie w pierwszej i 
+najwikszy numer komórki, w którym znajdowała si liczba. Oto przykład zawartoci 
+eksportowania  pliku.  Liczba  eksportowanych  komórek  tamy  jest  ograniczona  przez 
+kolejnej  komórki  tamy  lub  znak  „ ?” ,  gdy  dana  komórka  była  pusta  w  momencie 
+zakoczonych znakiem koca wiersza kada, gdzie w kadej linii znajduje si zawarto 
+my wejciowej i wyjciowej to seria linii, 
+ Format wyeksportowanego stanu ta
+[11] ? 
+[10] -117797 
+[ 9] ? 
+[ 8] ? 
+[ 7] 625 
+[ 6] ? 
+[ 5] ? 
+[ 4] 17 
+[ 3] 99 
+[ 2] ? 
+[ 1] ? 
+ [ 0] -4 
+zawarto wyeksportowanego stanu pamici dla przedziału 0 –  11: 
+jest odseparowany od wartoci komórki za pomoc jednego znaku spacji. Oto przykładowa 
+jeli warto komórki w momencie eksportu nie była okrelona. Numer komórki pamici 
+objtej w kwadratowe nawiasy. Nastpnie, zapisana jest warto komórki lub znak „ ?” , 
+znakiem koca wiersza. Na pocztku kadej linii znajduje si numer komórki pamici 
+ci zawiera seri linii tekstu, kada zakoczona 
+            Wyeksportowany plik stanu pami
+Rysunek 20 - okno wywietlane przy eksporcie stanu pamici 
+ 
+ 
+dyskowej lub proces eksportu zakoczy si błdem przepełnienia dysku. 
+pamita, e przy duym zakresie wygenerowany plik bdzie zajmował duo przestrzeni 
+komórek pamici, jaki nas interesuje. Moemy poda dowolny zakres, przy czym naley 
+           Podczas eksportu stanu pamici maszyny zostaniemy dodatkowo spytani o zakres 
+Z kolei import jest moliwy tylko dla tamy wejciowej. 
+∑    raport złoonoci programu. 
+∑    stan tamy wyjciowej, 
+∑    stan tamy wejciowej, 
+∑    aktualny stan pamici maszyny, 
+moemy: 
+pewnych plików (np.: do dalszej obróbki w innym programie). Wyeksportowa do pliku 
+liwo importowania i eksportowania 
+            W programie „ Maszyna RAM”  jest mo
+----------------Page (25) Break----------------
+                                                                      27 
+ 
+wybranych elementów programu: 
+pozostawi marginesy z kadej ze stron kartki. Oto przykładowe podgldy wydruków dla 
+dokładnie ustali jakiej wielkoci papier posiadamy w drukarce oraz jakie yczymy sobie 
+parametry wydruku. Uyteczna moe te by  opcja „ Page Settings” , gdzie moemy 
+okienko,  gdzie  moemy  wybra  docelow  drukark  oraz  dokładnie  skonfigurowa 
+(przed lub zamiast drukowania). Tu przed wydrukowaniem zostanie nam wywietlone 
+moemy take skorzysta z opcji „ Print Preview” , gdzie moemy podglda wydruk 
+raportu złoonoci oraz programu napisanego w kodzie RAM. Dla kadego z elementów 
+poszczególnych elementów jak: stan pamici maszyny, zawarto tam wejcia/wyjcia, 
+liwia    tworzenie    wydruków    (opcja    „ Print” ) 
+ Program    „ Maszyna    RAM”     umo
+Drukowanie 
+  
+     JZERO: 5 
+      JGTZ: 0 
+      JUMP: 4 
+     WRITE: 1 
+      READ: 1 
+     STORE: 10 
+      LOAD: 14 
+       DIV: 0 
+      MULT: 4 
+       SUB: 5 
+       ADD: 4 
+ - Executed Instructions Count 
+          Uniform Cost: 4 
+      Logarithmic Cost: 8 
+ - Space Complexity Report 
+          Uniform Cost: 49 
+      Logarithmic Cost: 104 
+- Time Complexity Report 
+ 
+----------------------------------------------------------------------- 
+Łukasz Szkup, Institute of Computer Science, Wrocław University, Poland 
+Complexity Report - RAM Machine 2006 
+ 
+struktur wyeksportowanego pliku: 
+programie. W tym przypadku od razu przejd do przykładu, który najlepiej zobrazuje 
+onoci  programu  przypomina  układ  okna  „ Complexity  Report”   w 
+ Format  zło
+eksportowanego pliku tamy wejciowej i wyjciowej. 
+my  wejciowej  jest  identyczny  jak  format 
+ Oczekiwany  format  przy  imporcie  ta
+4 
+? 
+? 
+33 
+----------------Page (26) Break----------------
+                                                                      28 
+ 
+Rysunek 22 –  podgld wydruku kontrolki pamici (przedział adresów: 0-300 oraz rozmiar kartki: A6) 
+ 
+ 
+Rysunek 21 –  podgld wydruku raportu złoonoci 
+ 
+----------------Page (27) Break----------------
+                                                                      29 
+o  „ Background Colour”  - kolor tła w kontrolce procesora 
+o  „ Text Colour”  –  kolor tekstu w kontrolce procesora 
+∑    „ Procesor’ s View”  –  kontrolka procesora 
+kodzie RAM; 
+programu jak procesor, pami, tamy i edytor do pisania programów w 
+o  „ Background Colour”  –  tło okna zawierajcego wszystkie kontrolki 
+∑    „ RAM Code Editor”  
+koloru jest nastpujca: 
+programu do własnych preferencji. Lista elementów posiadajcych moliwo zmiany 
+podlegaj zmianie koloru. Dziki temu uytkownik samodzielnie dostosuje wygld 
+     Na zakładce „ Appearance”  znajduj si poszczególne elementy programu, które 
+      
+ 
+ 
+∑    „ Animation Speed”  –  suwak, za pomoc którego ustalamy szybko animacji. 
+odpowiedniej animacji; 
+załadowanej   instrukcji   do   procesora   ma   by   wizualizowane   za   pomoc 
+∑    „ Show  Animation  of  Instruction  Execution”   –   ustala  czy  efekt  działania 
+animacj; 
+kolejnej  instrukcji  programu  do  procesora  ma  by  poprzedzone  odpowiedni 
+∑    „ Show Animation of Copying Instruction to Processor”  –  ustala czy kopiowanie 
+pujce ustawienia: 
+            Zakładka “ Animation”  posiada nast
+zakładki: „ Animation” , „ Appearance”  oraz „ Miscellaneous” . 
+zachowa programu, jak te jego wygld. Okno opcji jest podzielone tematycznie na 
+dostp do wszystkich opcji programu, gdzie moemy dowolnie skonfigurowa wiele 
+pnie „ Options”  otrzymujemy 
+            Po wybraniu z menu programu opcji „ Tools” , na nast
+Opcje –  konfiguracja programu 
+ 
+ 
+----------------Page (28) Break----------------
+                                                                      30 
+ 
+o  „ Background Colour”  –  kolor tła kontrolki; 
+o  „ Text Colour”  –  kolor tekstu kontrolki; 
+∑    “ Complexity Report”  –  kontrolka złoonoci programu 
+kontrolki; 
+o  „ Header’ s Background Colour”  –  kolor tła w nagłówkach kolumn 
+kontrolki; 
+o  „ Header’ s  Text  Colour”   –   kolor  tekstu  w  nagłówkach  kolumn 
+∑    „ Program Editor”  –  kontrolka słuca do pisania program w kodzie RAM 
+tamie; 
+o  „ Buttons’  Colour”  –  kolor przycisków słucych do nawigowania po 
+o  „ Background Colour”  –  kolor tła z numeracj komórek; 
+o  „ Text Colour”  –  kolor tekstu z numeracj komórek; 
+∑    „ Output Tape’ s View”  –  kontrolka tamy wyjciowej 
+tamie; 
+o  „ Buttons’  Colour”  –  kolor przycisków słucych do nawigowania po 
+o  „ Background Colour”  –  kolor tła z numeracj komórek; 
+o  „ Text Colour”  –  kolor tekstu z numeracj komórek; 
+∑    „ Input Tape’ s View”  –  kontrolka tamy wejciowej 
+skoczywszy na tym włanie kolorze; 
+pamici  uywany  do  cieniowania,  poczwszy  na  kolorze  białym  i 
+o  „ Gradient  Background  Colour”   –   kolor  tła  komórek  z  wartoci 
+adres komórki pamici; 
+o  „ Address’  Text Colour”  –  kolor tekstu w komórkach zawierajcych 
+o  „ Accumulator’ s Background Colour”  –  kolor tła komórki nr 0 
+nawigowania po kontrolce pamici; 
+o  „ Button’ s Background Colour” - kolor tekstu przycisków słucych do 
+nawigowania po kontrolce pamici; 
+o  „ Button’ s  Text  Colour”   –   kolor  tekstu  przycisków  słucych  do 
+„ Address”  i “ Value” ; 
+o  „ Header’ s Background Colour”  –  kolor tła w nagłówkach kolumn 
+„ Address”  i “ Value” ; 
+o  „ Header’ s  Text  Colour”   –   kolor  tekstu  w  nagłówkach  kolumn 
+∑    „ Memory View”  –  kontrolka pamici; 
+----------------Page (29) Break----------------
+                                                                      31 
+ 
+moliwej prdkoci. 
+tu przed prób uruchomienia programu w kodzie RAM przy maksymalnej 
+zosta spytany o potwierdzenie (za pomoc dodatkowego okna dialogowego) 
+∑    „ Ask Before Running a Program at Full Speed”  –  okrela, czy uytkownik ma 
+wyniku weryfikacji; 
+poprawnoci  programu  bdzie  odegrany  odpowiedni  dwik  zalenie  od 
+∑    „ Play  Sound  After  Program  Veryfication”   –   okrela,  czy  po  weryfikacji 
+jaka ma by jednoczenie widoczna na ekranie; 
+∑    „ Number of Visible Output Tape’ s Fields”  –  liczba komórek tamy wyjciowej, 
+jaka ma by jednoczenie widoczna na ekranie; 
+∑    „ Number of Visible Input Tape’ s Fields”  –  liczba komórek tamy wejciowej, 
+wykona intensywno pomidzy kolorem białym, a tym włanie kolorem; 
+jego wykonywania. Linie programu bd posiadały proporcjonaln do iloci 
+intensywno koloru, jak bd oznaczane wykonane linie programu podczas 
+∑    „ Marked   Program   Lines   Gradient   Colour”    –    okrela   maksymaln 
+całkowitej wykonanych linii programu; 
+proporcjonalnie czsto wykonania danej linii kodu w stosunku do iloci 
+wykonane  linie  programu,  gdzie  intensywno  koloru  bdzie  oznaczała 
+wykonywania   programu   były   zaznaczane   (odpowiednim   kolorem   tła) 
+∑    „ Mark Program Lines During Execution”  –  okrela czy chcemy, aby podczas 
+la jzyk interfejsu uytkownika (angielski/polski) 
+∑    „ UI Language”  –  okre
+      Ostatnia zakładka, „ Miscellaneous” , zawiera pozostałe opcje programu. Oto one: 
+ 
+----------------Page (30) Break----------------
+                                                                      32 
+drugiej linii kodu wczytujemy kolejn (drug) liczb z tamy wejciowej i ładujemy j do 
+do akumulatora (czyli komórki pamici nr 0) pierwsz liczb z tamy wejciowej. W 
+Jak czytelnik zauway, program jest do krótki i prosty. W linii nr 1 wczytujemy 
+ 
+4. write 0 
+3. add   1 
+2. read  1 
+1. read  0 
+ 
+dwóch komórkach tamy wejciowej. 
+przed  uruchomieniem  poniszego  programu  przygotowa  dwie  liczby  w  pierwszych 
+wyliczenie ich sumy i wypisaniu wyniku na tam wyjciow. A zatem pamitajmy, eby 
+dzie  wczytanie  dwóch  liczb  z  tamy  wejciowej, 
+            Zadaniem  tego  programu  b
+Dodawanie 
+  
+programu, a na kocu w miar szczegółowe objanienie jego działania. 
+najpierw bdzie przedstawione oczekiwane działanie programu, nastpnie kod gotowego 
+pomoe w lepszym zrozumieniu ich konstrukcji. Przy omawianiu kadego z programów 
+pomoc aplikacji poniszych przykładów i uwanego przeledzenia ich działania, co 
+instalacji „ Maszyny RAM” . Po przeczytaniu tego rozdziału polecam załadowanie za 
+katalogu „ RAM Machine Examples”  znajdujcym si na pulpicie, utworzonym podczas 
+„ Najwikszy wspólny dzielnik”  (plik ‘ NWD’ ). Omawiane tu programy s dostpne w 
+przykładzie  trzech  programów:  „ Dodawanie”   (plik  ‘ Add’ ),  „ Silnia”   (plik  ‘ Power’ ), 
+           Ten rozdział ma na celu przekazanie podstaw programowania w kodzie RAM na 
+ 
+Przykładowe programy w kodzie RAM 
+  
+ 
+----------------Page (31) Break----------------
+                                                                      33 
+której zadaniem jest wypisanie na tam wyjciow oczekiwanego wyniku. Linia nr 16 
+warunkiem stopu algorytmu. Jeli warunek jest spełniony, przechodzimy do linii nr 15, 
+sprawdzane kadorazowo (linia 6 i 7), czy warto komórki nr 2 osignła N, co jest 
+gdzie m( x ) nazywamy wartoci komórki o numerze x. Na pocztku przebiegu ptli jest 
+e warto komórki nr 3 jest zawsze równa (po ukoczenia danego przebiegu ptli) m( 2 )!, 
+komórki nr 3 (pocztkowo równa 1) jest mnoona przez warto komórki nr 2. Oznacza to, 
+zwiksza swoj warto o 1, a osignie warto N. Przy okazji kadego przebiegu warto 
+uywana jako licznik, który pocztkowo posiada warto 1 i w kadym przebiegu ptli 
+tamy wejciowej liczba nazywa si N. W kadym przebiegu ptli komórka nr 2 jest 
+Algorytm wykonywany w powyszej ptli jest nastpujcy. Niech wczytana z 
+wejciowych). 
+wczytanej z tamy wejciowej (co oznacza, e algorytm jest liniowy w stosunku do danych 
+5-14). Ptla bdzie wykonywana dokładnie tyle razy, na ile wskazuje warto liczby 
+3. Teraz, w linii pitej zaczynamy wykonywa ptl, w której bdzie obliczana silnia (linie 
+załadowana stała = 1. W linii nr 3 i 4 liczba ta zostaje skopiowana do komórki o adresie 2 i 
+si w pierwszej komórce tamy wejciowej. Nastpnie (linia nr 2) zostanie do akumulatora 
+W linii pierwszej nastpuje wczytanie do komórki pamici nr 1 liczby znajdujcej 
+ 
+16.                HALT   
+15.        koniec: WRITE 3 
+14.                JUMP  petla 
+13.                STORE 3 
+12.                MULT  2 
+11.                LOAD  3 
+10.                STORE 2 
+9.              ADD   =1 
+8.              LOAD  2 
+7.              JZERO koniec 
+6.              SUB   2 
+5.      petla:  LOAD  1 
+4.              STORE 3 
+3.              STORE 2 
+2.              LOAD  =1 
+1.              READ  1 
+ 
+nieujemn liczb w pierwszej komórce tamy. 
+Prosz pamita, eby przed uruchomieniem programu tama wejciowa zawierała 
+wiczenie.  
+odpowiednich instrukcji, które bd ten fakt sprawdzały, pozostawiam czytelnikowi jako 
+oczekiwana na tamie wejciowej jest nieujemna. Dopisanie do prezentowanego programu 
+sprawdzał poprawnoci danych wejciowych, a mianowicie faktu, czy pierwsza liczba 
+całkowitej.  Ze  wzgldu  na  ch  utrzymania  prostoty  programu,  program  nie  bdzie 
+dzie  nam  obliczał  silni  dla  dowolnie  zadanej  liczny 
+            Program  „ Silnia”   b
+Silnia 
+  
+wyjciowej. 
+ostatniej linii (nr 4) nastpuje zapisanie wartoci akumulatora do pierwszej komórki tamy 
+zawartoci akumulatora zawarto komórki nr 1 i wpisanie wyniku do akumulatora. W 
+komórki pamici nr 1. W trzeciej linii nastpuje główna operacja, któr jest dodanie do 
+----------------Page (32) Break----------------
+                                                                      34 
+ 
+16.        KONIEC: write 1 
+15.                jump  PETLA 
+14.                store 2 
+13.                load  3 
+12.                store 1 
+11.                load  2 
+10.                store 3 
+9.              mult  =-1 
+8.              sub   1 
+7.              mult  2 
+6.              div   2 
+5.              load  1 
+4.      PETLA:  jzero KONIEC 
+3.              load  2 
+2.              read  2 
+1.              read  1 
+ 
+zanie w kodzie RAM. 
+               Teraz przedstawimy rozwi
+} 
+     return x; 
+     } 
+          y = temp; 
+          x = y; 
+          temp = x % y; // temp = x MODULO y; 
+     { 
+     while ( y != 0 ) 
+     int temp; 
+{ 
+int NWD( int x, int y ) 
+ 
+Implementacja powyszego wzory w jzyku C wyglda nastpujco: 
+ 
+ 
+obserwacji: 
+p.n.e.),  na  którym  bazuje  ponisza  implementacja.  Algorytm  bazuje  na  poniszej 
+greckiego matematyka - Eudoksosa z Knidos, yjcego w drugiej połowie IV wieku 
+powysze  załoenia.  Nieco  lepszym  algorytmem  jest  algorytm  Euklidesa  (autorstwa 
+zbioru liczb naturalnych <1, min(x,y)> i wybrania maksymalnej liczby, która spełnia 
+przez któr zarówno x i y dzieli si bez reszty. Najprostszym algorytmem jest przejrzenie 
+dowolnych dwóch liczb naturalnych x i y, czyli takiej maksymalnej liczby naturalnej z, 
+kszego  wspólnego  dzielnika  dla 
+            Celem  tego  programu  jest  obliczenie  najwi
+  Najwikszy wspólny dzielnik 
+maszyna nie znajduje kolejnej instrukcji do wykonania, automatycznie koczy działanie). 
+informuje maszyn, by zakoczyła swoje działanie, cho nie jest ona konieczna (gdy 
+----------------Page (33) Break----------------
+                                                                      35 
+komentarz. Przykładowo, zamiast niepoprawnego wywołania: 
+parametr  obj  w  znaki  cudzysłowia,  niezalenie  czy  jest  to  cieka  do  pliku,  czy 
+y tutaj wyranie zaznaczy, e podajc parametr zawierajcy znaki spacji, naley taki 
+ Nale
+kodu ródłowego programu, który został uruchomiony. 
+cu pliku z raportem złoonoci) 
+podanie tego parametru spowoduje umieszczenie (na ko
+ -ip [opcjonalnie] 
+złoonoci; 
+yty na wykonanie programu; informacja zostanie dodana na kocu pliku z raportem 
+zu
+podanie tego parametru spowoduje dodanie informacji o rzeczywistym czasie, jaki został 
+ -et [opcjonalnie] 
+tku pliku z raportem złoonoci; 
+dowolny komentarz, który zostanie umieszczony na pocz
+ -c SOME_COMMENT [opcjonalnie] 
+cieka do pliku zawierajcego dane dla tamy wejciowej; 
+ -it INPUT_TAPE_FILE [opcjonalnie] 
+cieka do pliku z programem w kodzie RAM; 
+ -p PROGRAM_FILE 
+gdzie: 
+ 
+RamMachine.cmd.exe -p PROGRAM_FILE -it INPUT_TAPE_FILE -c SOME_COMMENT -et -ip 
+ 
+linia polece, któr uruchamiamy program: 
+uruchamiania „ Maszyny RAM”  w wersji konsolowej, z linii polece. Poniej znajduje si 
+Szkup\RAM  Machine\),  odnajdziemy  plik  RamMachine.cmd.exe.  Plik  ten  słuy  do 
+została   zainstalowana   aplikacja   (standardowo   katalog:   C:\Program   Files\Lukasz 
+przygotowana odrbna wersja obsługiwana z linii polece. Po przejciu do katalogu, gdzie 
+  „ Maszyny  RAM”   w  wersji  okienkowej,  została  take 
+            Wraz  z  instalacj
+Obsługa programu „ Maszyna RAM”  w wersji tekstowej 
+ 
+ 
+RAM”  moemy przeledzi dokładnie działanie tego programu, krok po kroku. 
+modulo osignie wynik 0. Wczytujc plik NWD dostarczony wraz z instalacj „ Maszyny 
+wynikiem działania operacji modulo. Ptla jest powtarzana do momentu, a wynik operacji 
+obliczane jest modulo dwóch liczb, nastpnie ich zamiana i nadpisanie drugiej z nich 
+ptli, w liniach 4-15. Tak jak w przypadku programu w C, w kadym przebiegu ptli 
+Powyszy program prezentuje algorytm Euklidesa. Serce algorytmu mieci si w 
+dół” . Dziki temu uycie powyszego wzoru w kodzie RAM nie bdzie problemem. 
+całkowitych otrzymamy liczb całkowit, która jest wynikiem dzielenia zaokrglonym „ w 
+e podczas dzielenia dwóch liczb 
+ Arytmetyka maszyny RAM zapewnia nam, 
+     
+ ( a / b )    * b. 
+ a modulo b = a –  
+nastpujcy: 
+zastpiona w powyszym programie dzieleniem, mnoeniem i odejmowaniem. Wzór jest 
+Poniewa  w  kodzie  RAM  nie  dysponujemy  operacj  modulo,  została  ona 
+----------------Page (34) Break----------------
+                                                                      36 
+ 
+stosuje w/w format. 
+okienkowa i konsolowa) podczas odczytu i zapisu pliku z programem RAM, zawsze 
+pocztkowych  rozdziałów  temu  powiconych.  Program  „ Maszyna  RAM”   (wersja 
+programu. Po pozostałe informacje na temat formatu kodu RAM odsyłam do jednego z 
+jest zawsze traktowany jako komentarz i nie ma wpływu na kompilacj i działanie 
+z komentarzem jest znak ‘ #’ . Tekst zawarty pomidzy tym znakiem, a znakiem koca linii 
+programu moemy wstawi komentarz. Znakiem specjalnym oznaczajcym pocztek linii 
+instrukcji  skoku,  wtedy  podajemy  sam  nazw  etykiety.  Dodatkowo,  w  kadej  linii 
+zawsze powinien si znale znak dwukropka. Jeli jednak etykieta jest argumentem 
+c rcznie plik z programem RAM, naley pamita, e po etykiecie 
+            Przygotowuj
+wersji maszyny. 
+wyeksportowa tam wejciow), a nastpnie uruchomi program z poziomu konsolowej 
+program w kodzie RAM w okienkowej wersji „ Maszyny RAM”  (oraz przygotowa i 
+eksportu/importu, opisane w jednym z rozdziałów powyej. Dziki temu moemy napisa 
+pliki,   jakie   program   wczytuje/zapisuje   maj   formaty   identyczne   jak   podczas 
+podane odpowiednie parametry podczas uruchamiania z linii polece). Wszystkie trzy 
+(wraz z zawartym komentarzem, czasem wykonywania oraz programem RAM, gdy zostały 
+my wyjciowej. Drugi plik to raport złoonoci programu 
+            Pierwszy plik to zapis ta
+jako parametr przy uruchamianiu maszyny. 
+           PROGRAM_FILE –  nazwa pliku programu RAM (lecz bez rozszerzenia), podana 
+gdzie: 
+PROGRAM_FILE_Report.txt 
+PROGRAM_FILE_Output.txt 
+utworzone dwa pliki:  
+programem w kodzie RAM, który był podany jako parametr w linii polece, zostan 
+wyjcie  dokładny  rzeczywisty  czas  jego  wykonywania.  Dodatkowo,  w  katalogu  z 
+           Po  wykonaniu  programu  w  kodzie  RAM  zostanie  wypisany  na  standardowe 
+pracy (zostanie take podana linia programu, która spowodowała krytyczne zatrzymanie). 
+wykonywanie oraz powiadomi uytkownika o przyczynie natychmiastowego przerwania 
+jest pusta lub zostanie napotkana instrukcja DIV i dzieln bdzie 0, program zakoczy 
+w kodzie RAM nastpi próba czytania z tamy wejciowej, gdy aktualna komórka tamy 
+przypadku nastpuje faza uruchomienia programu. Jeli podczas wykonywania programu 
+programu zawierajce błdy oraz krótki opis błdu dla kadej z linii. W przeciwnym 
+kodzie RAM. W przypadku niepowodzenia weryfikacji, zostan wypisane numery linii 
+ po uruchomieniu programu maszyny nastpuje faza weryfikacji programu w 
+            Tu
+-p „Mój program.RAMCode” –c „Jaki komentarz na temat programu”  
+.
+ 
+: 
+ powinno by
+-p Mój program.RAMCode –c Jaki komentarz na temat programu 
+----------------Page (35) Break----------------
+                                                                      37 
+∑    mechanizm do zarzdzania wieloma dokumentami (UltraWinTabbedMdi), 
+∑    kontrolka menu (UltraToolbarManager),  
+RAM,  
+∑    kontrolka tabeli (UltraWinGrid) –  uyta przy tworzeniu kontrolki edytora kodu 
+(http://www.infragistics.com/). Z biblioteki tej zostały uyte m.in. nastpujce kontrolki: 
+została     uyta     biblioteka     NetAdvantage     2005     vol.1     firmy     Infragistics 
+.NET w wersji 1.1. Ł cznie posiada ok. 22.000 linii kodu. Przy implementacji aplikacji 
+ci napisany w C# z uyciem framework 
+            Program „ Maszyna RAM”  został w cało
+Implementacja i informacje dla kontynuatorów programu 
+  
+Rysunek 25 –  przykład próby uruchomienia błdnego programu 
+ 
+ 
+Rysunek 24 –  przykład uruchomienia 
+ 
+ 
+Rysunek 23 –  uruchomienie bez parametrów 
+ 
+----------------Page (36) Break----------------
+                                                                      38 
+klas potrzebnych do weryfikacji i uruchamiana programów napisanych w kodzie RAM. 
+Jedyny moduł, jaki uywa do swojego działania to moduł Common, który zawiera komplet 
+. 
+ RamMachine.CommandLine –  wersja „ Maszyny RAM”  uruchamiana z linii polece
+za animacj. 
+tworz ostatecznie aplikacj –  „ Maszyn RAM” . Zawiera on take klasy odpowiedzialne 
+ powysze moduły, które 
+ RamMachine –  moduł uruchamialny, który spina w cało
+dowolnego innego projektu. 
+wymaga jedynie biblioteki Common i po spełnieniu tego warunku moe by wcielona do 
+ci maszyny RAM. Równie do swojej niezalenoci 
+ MemoryGrid –  kontrolka pami
+uytkownika i jest gotowa do uycia w innym projekcie. 
+biblioteki  Common,  jest  zupełnie  niezalena.  Posiada  kompletn  obsług  interfejsu 
+my wejciowej i wyjciowej. Take, poza wymaganiem 
+ IOTapeView –  kontrolka ta
+projekcie. 
+powyszej biblioteki Common), moe zosta uyty bezproblemowo w dowolnym innym 
+ obsług interfejsu uytkownika i jako moduł niezaleny (wymaga jedynie 
+kompletn
+ InstructionEditor –  kontrolka edytora do pisania programów w kodzie RAM. Zawiera 
+lub przy tworzeniu programu, który skorzysta z implementacji arytmetyki duych liczb. 
+tworzeniu nowej wersji Maszyny RAM, zawierajcej zupełnie inny interfejs uytkownika 
+pozostałych  modułów,  dziki  czemu  mona  go  uy  w  innym  projekcie,  np.:  przy 
+ikonki, dwiki) oraz do zarzdzania dokumentami XML. Moduł jest niezaleny od 
+raport  złoonoci),  zarzdzania  zasobami  programu  (wielojzykowe  tablice  stringów, 
+przydatnych klas, m.in. do eksportu/importu danych  (tama wejcia/wyjcia, pami, 
+uruchamiania  programów  napisanych  w  kodzie  RAM.  Dodatkowo  zawiera  mnóstwo 
+duych   liczb   całkowitych)   oraz   mechanizmy   do   parsowania,   weryfikowania   i 
+dzy innymi arytmetyk 
+ Common –  moduł, który zawiera wszelkie struktury danych (mi
+wprowadzajcym opis modułu. 
+           Poniej przedstawi kolejne moduły, na które składa si cała aplikacja, wraz z 
+ 
+Rysunek 26 - podział projektu na moduły 
+ 
+ 
+ródłowego. 
+projektem  odpowiedzialnym  za  tworzenie  instalacji  aplikacji  i  nie  zawiera  kodu 
+Projekt programu został podzielony na 7 modułów, przy czym ostatni z nich jest 
+ 
+(UltraWinPrintPreviewDialog) –  uyta przy wszelkich wydrukach 
+∑    kontrolka      drukujca      i      wywietlajca      podgld      wydruku      tabeli 
+kontrolki wywietlajcej raport złoonoci, 
+∑    kontrolka umoliwiajca dokowanie okna (UltraWinDock) –  uyta przy tworzeniu 
+----------------Page (37) Break----------------
+                                                                      39 
+ 
+ 
+udzieli pomocnych wskazówek. 
+wdroy kolejny (lub kolejne) jzyk programowania do niniejszej aplikacji, autor chtnie 
+wejcia/wyjcia oraz edytora kodu RAM).  Gdyby  czytelnik postanowił na powanie 
+odpowiedzialna za wywietlanie edytora zawierajcego kontrolk procesora, pamici, tam 
+okna, bazujcej na klasie RAMEditorBase (z której dziedziczy klasa RAMCodeEditor, 
+zaimplementowanie leksera i parsera, a w projekcie RamMachine napisanie nowej klasy 
+konwertowany  do  kodu  RAM.  W  bibliotece  Common  proponowałbym  wówczas 
+zaprogramowa nowy jzyk, oparty na składni jzyka C, który podczas kompilacji bdzie 
+wdroy    do    programu    kolejne    jzyki    programowania.    Mona    przykładowo 
+Projekt maszyny RAM został napisany na tyle elastycznie, e do łatwo jest 
+dokumenty (dane programu). 
+zupełnie inny, nie muszc od nowa implementowa lub poprawia warstwy zawierajcej 
+wspominałem, e w kadym momencie moemy „ wymieni”  interfejs uytkownika na 
+Wniosek  jaki  płynie  z  zastosowania  takiego  podziału  jest  taki,  jak  ju  wczeniej 
+(a wic przede wszystkim graficzny sposób prezentowania danych) od danych aplikacji. 
+podział na warstwy zapewnia nam przede wszystkim niezaleno interfejsu uytkownika 
+Klasy opakowujce dokumenty uywane w aplikacji znajduj si w module Common. Taki 
+słu jedynie do wywietlania danych znajdujcych si w dostarczonym dokumencie. 
+Widok. Wszelkie kontrolki, m.in. takie jak InstructionEditor, IOTapeView i MemoryGrid 
+Maszyna Ram została napisana w oparciu o wzorzec projektowy Dokument –  
+ 
+najprostszy, działajcy interfejs dla maszyny RAM. 
+zaledwie 200 linii kodu, bo tylko tyle wystarczy, by uywajc biblioteki Common napisa 
+która posiada wszystkie gotowe mechanizmy z tym zwizane. Moduł ten składa si na 
+program implementujcy interfejs dla maszyny RAM, gdy uyjemy biblioteki Common, 
+Jest to przy okazji bardzo dobry przykład obrazujcy jak łatwo mona stworzy nowy 
+----------------Page (38) Break----------------
+                                                                      40 
+ 
+Rysunek 30 - moduł MemoryGrid 
+ 
+ 
+Rysunek 29 - moduł IOTapeView 
+ 
+ 
+Rysunek 28 - moduł InstructionEditor 
+ 
+ 
+Rysunek 27 - moduł Common –  ogólny widok 
+ 
+----------------Page (39) Break----------------
+                                                                      41 
+ 
+Rysunek 33 - moduł Setup 
+ 
+ 
+Rysunek 32 - moduł RamMachine.CommandLine 
+ 
+ 
+Rysunek 31 - moduł RamMachine 
+ 
+----------------Page (40) Break----------------
+                                                                      42 
+  
+pozwala mie nadziej, e ostateczny produkt stoi na moliwie najwyszym poziomie. 
+przyjemna i bezproblemowa. Kady z elementów aplikacji był wielokrotnie testowany, co 
+           Autor dołoył najwikszych stara, by praca z „ Maszyn RAM”  była moliwie 
+RAM(!). 
+algorytmu staje si na tyle płynne i naturalne, jakby uytkownik...  mylał w kodzie 
+okresie  obcowania  z  kodem  RAM  nastpuje  etap,  e  zaprogramowanie  dowolnego 
+rozrywk –  odskoczni od aktualnie panujcych jzyków programowania. Po dłuszym 
+kodzie RAM moe by nie tylko niezłym wyzwaniem intelektualnym, ale take dobr 
+człowieka), by zakodowa go w kodzie RAM skoczywszy. Dlatego te programowanie w 
+zaczynajc myle o jakim algorytmie w jzyku naturalnym (zrozumiałym jedynie dla 
+zaprogramowanie go w jzyku C++ lub Java.  Musimy przeskoczy wiele warstw na raz, 
+algorytm przenie do kodu RAM, naley włoy w to nieco wicej wysiłku ni w 
+niskopoziomowym, co zmusza uytkownika do kreatywnego mylenia, poniewa aby dany 
+kompilacji, do jzyka niskopoziomowego. Kod RAM jest ju sam w sobie jzykiem 
+           Wszystkie wysokopoziomowe jzyki programowania s tłumaczone,  na etapie 
+wszystkich róni si (od kodu RAM) jedynie wiksz iloci instrukcji. 
+uczc si kodu RAM, posiadamy dobry fundament do nauki asemblera, który przede 
+konwersji), na którym bazuj pozostałe jzyki i bez którego by nie istniały. Dlatego te, 
+jego  instrukcje  s  bezporednio  wykonywane  przez  procesor,  bez  jakiejkolwiek 
+Asembler jest jednym z najniszych w hierarchii jzykiem (chociaby z tego powodu, e 
+maj  okazj  pozna  kod  RAM,  który  najbardziej  przypomina  jzyki  typu  asembler. 
+które ju znaj jakikolwiek wysokopoziomowy jzyk programowania (np.: Java, C++, C#) 
+rednich i wyszych jako narzdzie wprowadzajce do wiata programowania. Osoby, 
+edukacyjnych. Program moe sta si jedn z pozycji w programie nauczania w szkołach 
+l o zastosowaniach 
+            Program „ Maszyna RAM”  został napisany głównie z my
+Podsumowanie 
+----------------Page (41) Break----------------
+                                                                      43 
+ 
+  Klasy P i NP 
+osignicia stanu ze zbioru F. 
+oblicze  w  w/w  drzewie,  by  sprawdzi,  która  (lub:  które)  ostatecznie  biegnie  do 
+zasymulowa za pomoc DTM, przeprowadzajc mozolne sprawdzenie wszystkich cieek 
+ostatecznie do jednego ze stanów F. Wynika std take, e działanie NDTM moemy 
+ciek w takim drzewie (którego wierzchołkami s stany ze zbioru Q), by dotrze 
+jednoczenie pewne drzewo oblicze. NDTM jest na tyle „ mdra” , e wybiera tylko jedn 
+kroku odpowiednie maszyny zachowuj si ponownie w ten sam sposób, wyznaczajc 
+przechodzi w innych stan, który opisuje nasza „ magiczna”  funkcja przejcia. Po kolejnym 
+0
+Pocztkowo kada znajduje si w stanie q , jednak w kolejnym kroku kada z nich 
+jest   wyobraenie   kilku   deterministycznych   maszyn   uruchomionych   jednoczenie. 
+Innym sposobem na przyblienie sobie działania niedeterministycznej maszyny, 
+podstawie aktualnego stanu i przeczytanego z tamy symbolu.  
+bardziej kolokwialnie, NDTM „ zgaduje”  swoje kolejne przejcie w nastpny stan, na 
+przejcia moe spowodowa przejcie maszyny w wicej ni jeden kolejny stan. Mówic 
+identyczna z deterministyczn maszyn Turinga. Jedyna rónica polega na tym, e funkcj 
+Niedeterministyczna  wersja  maszyny  Turinga  jest,  poza  jednym  szczegółem, 
+ 
+  Niedeterministyczna maszyna Turinga (NDTM) 
+ostatecznie prowadzi do zmiany stanu maszyny po uruchomieniu kadej instrukcji. 
+jest rzeczywicie sekwencj decyzji, jakie ma podejmowa maszyna w kadym kroku, co 
+Funkcj przejcia moemy te nazywa programem, jaki wykonuje maszyna, która 
+nazywa zaptleniem si maszyny.  
+bdzie w nieskoczono lawirowa pomidzy stanami, które nie nale do F, co bdziemy 
+zbioru F, koczy swoje działanie. Moe si take zdarzy taki przypadek, e maszyna 
+0
+samym pocztku znajduje si w stanie q , a jak tylko znajdzie si w jednym ze stanów ze 
+w lewo (L), w prawo (R) lub pozostawia j w niezmienionej pozycji (N). Maszyna na 
+nowy stan maszyny. Nastpnie zapisuje symbol na tamie, oraz przesuwa głowic czytnika 
+funkcj przejcia, okrela, na podstawie odczytanego symbolu i aktualnego stanu, kolejny, 
+jeden symbol, nad którym jest ustawiony aktualnie czytnik, nastpnie, posługujc si 
+jak i zapisywał dane (symbole z alfabetu S). W kadym kroku automat odczytuje z tamy 
+elementu sterujcego, głowicy oraz tamy, z której automat bdzie zarówno odczytywał, 
+rozumiany jako dowolne urzdzenie przetwarzajce dane. Urzdzenie to składa si z 
+Posługujc  si  jzykiem  opisowym,  DTM  jest  automatem,  który  moe  by 
+ 
+
+F - zbiór kocowych stanów sterowania, F    Q. 
+0                                                                              0
+
+q  - pocztkowy stan sterowania, q    Q; 
+d - funkcja przejcia, gdzie d: Q ¥ S Æ  Q ¥ S ¥ {R, L, N}; 
+S - alfabet (zbiór symboli) tamy; 
+Q - zbiór stanów sterowania maszyny; 
+0
+Formalnie deterministyczna maszyna Turinga jest zbiorem {Q, S, d, q , F}, gdzie: 
+ 
+ Deterministyczna maszyna Turinga (DTM) 
+Dodatek - Maszyny Turinga 
+----------------Page (42) Break----------------
+                                                                      44 
+wielomianowym i wiele wskazuje na to, e nigdy do takiego momentu nie dojdzie. 
+poszukiwa)  nie  podał  adnego  algorytmu,  który  by  rozkładał  liczby  w  czasie 
+Jednak na razie moemy spa spokojnie, poniewa nikt (pomimo wielu dziesitek lat 
+opiera si na rozkładzie długich liczb na czynniki pierwsze, co jest problemem trudnym. 
+poniewa wiele metod szyfrowania (przykładowo: RSA stosowana w kluczach PGP), 
+wielkim zagroeniem choby dla takiej dziedziny informatyki, jak jest kryptografia, 
+rozwiza pozostałe problemu z tej klasy take w tym czasie. Byłoby to oczywicie 
+rozwiza choby jeden problem z klasy NP w czasie wielomianowym, potrafilibymy 
+powrotem  przełoy  na  wynik  odpowiedni  dla  pierwszego  problemu.  Wic  umiejc 
+drugiego problemu, nastpnie uruchamiajc algorytm (dla drugiego problemu), a wyniki z 
+czasie wielomianowych dokona redukcji, transformujc dane jednego problemu w dane 
+wówczas P = NP. Wynika to z faktu, e pomidzy problemami tej samej klasy moemy w 
+natomiast dla jakiegokolwiek problemu z klasy NP przedstawił wielomianowy algorytm, 
+e P = NP lub, e P 
+ NP. Jednake przyjmuje si na razie, e P 
+ NP. Gdyby kto 
+wielomianowy. Pomimo klasyfikacji problemów na P i NP nikt dotychczas nie udowodnił, 
+komiwojaera, problem plecakowy czy problem SAT. Nie istnieje dla nich algorytm 
+           Do klasycznych przykładów problemów nalecych do klasy NP, s: problem 
+wielomianowych sprawdza, e rozwizanie jest prawidłowe. 
+maszyna  Turinga  najpierw  „ zgaduje”   rozwizanie  problemu,  a  nastpnie  w  czasie 
+klasy s obliczalne w czasie wielomianowym przez NDTM. Otó niedeterministyczna 
+stanie obliczy dla pewnych danych rozwizanie. Definiuje si jednake, e problemy z tej 
+problemów trudnych, poniewa nie istnieje dla nich algorytm wielomianowy, który jest w 
+           Natomiast  zbiór  problemów  nalecych  do  klasy  NP  okrela  si  mianem 
+stanów, zanim dotrze stanu ze zbioru F, a na tamie znajdzie si zapisany wynik oblicze. 
+dla maszyny DTM, e dla danego problemu wykona ona wielomianow ilo zmiany 
+wielomianowy algorytm dla tych problemów. Oznacza to, e istnieje taki cig instrukcji 
+           Zbiór  problemów  nalecych  do  klasy  P,  okrela  si  mówic,  e  istnieje 
+problemów powstały definicje klas P i NP. 
+nie  ma  dobrego,  szybkiego  algorytmu.  Dla  lepszego  rozrónienia  skali  trudnoci 
+najlepszy algorytm dla kadego problemu. Okazuje si, e istniej problemy, dla których 
+naszym przypadku: iloci komórek tamy maszyny). Z pewnoci chcielibymy wybra 
+rónicych si przede wszystkich czasem działania i iloci wykorzystanej pamici (w 
+danych  wejciowych.  Dla  danego  problemu  moe  by  wiele  rónych  algorytmów, 
+sekwencj instrukcji, które ma wykona maszyna, aby obliczy rozwizanie dla pewnych 
+algorytm. Algorytm jest pewnym przepisem obliczania. Inaczej mówic, algorytm jest 
+          Aby  przeprowadzi  obliczenia  dla  pewnego  problemu  potrzebujemy  ustali 
+----------------Page (43) Break----------------
+                                                                      45 
+   
+ 
+4.  http://pl.wikipedia.org/wiki/Maszyna_Turinga 
+3.  http://pl.wikipedia.org/wiki/Maszyna_RAM 
+Ronald L. Rivest, wydawnictwo WNT, 1997, 1998 
+2.  „ Wprowadzenie do algorytmów”  –  Thomas H. Carmen, Charles E. Leiserson, 
+D. Ulman, wydawnictwo Helion 2003 
+1.  „ Projektowanie i analiza algorytmów”  –  Alfred V. Aho, John E. Hopcroft, Jeffrey 
+ 
+Bibliografia 
+----------------Page (44) Break----------------

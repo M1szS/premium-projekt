@@ -21,5 +21,5 @@ Jeśli tworzysz aplikację produkcyjną, zalecamy użycie TypeScript z włączon
 Żeby uruchomić projekt należy pobrać [nodejs](https://nodejs.org/en/download), oraz wykonać następujące polecenia krok po kroku:
 
 krok 1: `npm install` w głównym katalogu projektu<br>
-krok 2: Ponowne uruchomienie VScode, należy upewnić się że wszystkie okna są zamknięte
+krok 2: Ponowne uruchomienie VScode, należy upewnić się że wszystkie okna są zamknięte <br>
 krok 3: `npm run dev` w tym samym katalogu

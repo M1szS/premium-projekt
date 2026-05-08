@@ -1,14 +1,14 @@
 # Ram Maszyna
-Aby zobaczyć naszą stronę, przejdź pod adres: [https://m1szs.github.io/premium-projekt/](https://m1szs.github.io/premium-projekt/)
+Aby zobaczyć naszą stronę, przejdź pod adres: [https://m1szs.github.io/premium-projekt/](https://m1szs.github.io/premium-projekt/)                              
+ 
+Ten szablon zapewnia minimalną konfigurację, aby uruchomić React w Vite z HMR (Hot Module Replacement) oraz kilkoma zasadami ESLint.                         
 
-Ten szablon zapewnia minimalną konfigurację, aby uruchomić React w Vite z HMR (Hot Module Replacement) oraz kilkoma zasadami ESLint.
-
-Obecnie dostępne są dwie oficjalne wtyczki:
+Obecnie dostępne są dwie oficjalne wtyczki:                                                         
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) wykorzystuje [Oxc](https://oxc.rs)
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) wykorzystuje [SWC](https://swc.rs/)
 
-## Kompilator React
+## Kompilator React                                       
 
 Kompilator React nie jest domyślnie włączony w tym szablonie ze względu na jego wpływ na wydajność w trybie deweloperskim oraz podczas budowania aplikacji. Aby go dodać, zobacz tę [dokumentację
 ](https://react.dev/learn/react-compiler/installation).

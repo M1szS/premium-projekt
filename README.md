@@ -1,4 +1,4 @@
-# React + Vite
+# Ram Maszyna
 Aby zobaczyć naszą stronę, przejdź pod adres: [https://m1szs.github.io/premium-projekt/](https://m1szs.github.io/premium-projekt/)
 
 Ten szablon zapewnia minimalną konfigurację, aby uruchomić React w Vite z HMR (Hot Module Replacement) oraz kilkoma zasadami ESLint.

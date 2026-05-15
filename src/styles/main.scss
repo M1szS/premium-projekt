@@ -249,7 +249,7 @@ body {
 /* Program Editor */
 .editor-grid {
   display: grid;
-  grid-template-columns: 40px 60px 100px 100px 1fr;
+  grid-template-columns: 40px 100px 100px 1fr;
   gap: 1px;
   background: var(--panel-border);
   border: 1px solid var(--panel-border);
@@ -301,6 +301,29 @@ body {
       font-family: var(--font-mono);
       font-size: 0.9rem;
       outline: none;
+
+      &:focus {
+        background: rgba(255,255,255,0.05);
+      }
+    }
+
+    select.instr-select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--accent-color);
+      padding: 0.4rem 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      
+      option {
+        background: var(--bg-color);
+        color: white;
+      }
 
       &:focus {
         background: rgba(255,255,255,0.05);

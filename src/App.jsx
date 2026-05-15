@@ -7,13 +7,13 @@ import { RAMEngine } from './lib/ramEngine';
 import './styles/main.scss';
 
 const initialProgram = [
-  { label: '', instruction: 'READ', argument: '1', comment: '// read first number to memory[1]' },
-  { label: '', instruction: 'READ', argument: '2', comment: '// read second number to memory[2]' },
-  { label: '', instruction: 'LOAD', argument: '1', comment: '// load memory[1] to ACC' },
-  { label: '', instruction: 'ADD', argument: '2', comment: '// add memory[2] to ACC' },
-  { label: '', instruction: 'STORE', argument: '3', comment: '// store ACC to memory[3]' },
-  { label: '', instruction: 'WRITE', argument: '3', comment: '// write memory[3] to output' },
-  { label: '', instruction: 'HALT', argument: '', comment: '// end program' },
+  { instruction: 'READ', argument: '1', comment: '// read first number to memory[1]' },
+  { instruction: 'READ', argument: '2', comment: '// read second number to memory[2]' },
+  { instruction: 'LOAD', argument: '1', comment: '// load memory[1] to ACC' },
+  { instruction: 'ADD', argument: '2', comment: '// add memory[2] to ACC' },
+  { instruction: 'STORE', argument: '3', comment: '// store ACC to memory[3]' },
+  { instruction: 'WRITE', argument: '3', comment: '// write memory[3] to output' },
+  { instruction: 'HALT', argument: '', comment: '// end program' },
 ];
 
 function App() {
@@ -112,7 +112,7 @@ function App() {
   }, [isRunning, program]); // Need program in dep to keep it updated
 
   const handleAddLine = () => {
-    setProgram([...program, { label: '', instruction: '', argument: '', comment: '' }]);
+    setProgram([...program, { instruction: '', argument: '', comment: '' }]);
   };
 
   const handleRemoveLine = (index) => {

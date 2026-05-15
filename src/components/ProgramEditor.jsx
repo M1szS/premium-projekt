@@ -1,7 +1,6 @@
 // Plik: src/components/ProgramEditor.jsx
 // Komponent edytora programu RAM: pozwala przeglądać i modyfikować
-// listę instrukcji (instrukcja, argument, komentarz).
-// Zawiera proste podpowiedzi komentarzy generowane automatycznie.
+// listę instrukcji (etykieta, instrukcja, argument, komentarz).
 import React from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 
@@ -18,26 +17,26 @@ export function ProgramEditor({ program, activeLine, onChange, onAddLine, onRemo
     
     let target = '';
     if (cleanArg.startsWith('=')) {
-      target = `value ${cleanArg.substring(1)}`;
+      target = `wartość ${cleanArg.substring(1)}`;
     } else if (cleanArg.startsWith('*') || cleanArg.startsWith('^')) {
-      target = `address pointed to by address ${cleanArg.substring(1)}`;
+      target = `adresu wskazywanego przez adres ${cleanArg.substring(1)}`;
     } else if (cleanArg) {
-      target = `address ${cleanArg}`;
+      target = `adresu ${cleanArg}`;
     }
 
     switch (instruction) {
-      case 'READ': return `// wczytaj wejście do ${target || 'adresu'}`;
+      case 'READ': return `// wczytaj dane do ${target || 'adresu'}`;
       case 'WRITE': return `// wypisz ${target || 'wartość'} na wyjście`;
-      case 'LOAD': return `// załaduj ${target || 'wartość'} do akumulatora`;
-      case 'STORE': return `// zapisz akumulator do ${target || 'adresu'}`;
-      case 'ADD': return `// dodaj ${target || 'wartość'} do akumulatora`;
-      case 'SUB': return `// odejmij ${target || 'wartość'} od akumulatora`;
-      case 'MULT': return `// pomnóż akumulator przez ${target || 'wartość'}`;
-      case 'DIV': return `// podziel akumulator przez ${target || 'wartość'}`;
+      case 'LOAD': return `// ładuj ${target || 'wartość'} do ACC`;
+      case 'STORE': return `// zapisz ACC do ${target || 'adresu'}`;
+      case 'ADD': return `// dodaj ${target || 'wartość'} do ACC`;
+      case 'SUB': return `// odejmij ${target || 'wartość'} od ACC`;
+      case 'MULT': return `// pomnóż ACC przez ${target || 'wartość'}`;
+      case 'DIV': return `// podziel ACC przez ${target || 'wartość'}`;
       case 'JUMP': return `// skocz do etykiety/linii ${cleanArg}`;
       case 'JGTZ': return `// skocz do ${cleanArg} jeśli ACC > 0`;
       case 'JZERO': return `// skocz do ${cleanArg} jeśli ACC == 0`;
-      case 'HALT': return `// zatrzymaj wykonywanie programu`;
+      case 'HALT': return `// zatrzymaj program`;
       case 'NOP': return `// brak operacji`;
       default: return '';
     }
@@ -64,15 +63,24 @@ export function ProgramEditor({ program, activeLine, onChange, onAddLine, onRemo
           {/* Header */}
           <div className="grid-row">
             <div className="grid-header">LN</div>
+            <div className="grid-header">Etykieta</div>
             <div className="grid-header">Instr</div>
             <div className="grid-header">Arg</div>
-            <div className="grid-header">Comment</div>
+            <div className="grid-header">Komentarz</div>
           </div>
           
           {/* Rows */}
           {program.map((line, index) => (
             <div key={index} className={`grid-row ${activeLine === index ? 'active' : ''}`}>
               <div className="grid-cell ln">{index}</div>
+              <div className="grid-cell">
+                <input 
+                  type="text" 
+                  value={line.label || ''} 
+                  onChange={(e) => handleChange(index, 'label', e.target.value)}
+                  placeholder="ETYKIETA"
+                />
+              </div>
               <div className="grid-cell">
                 <select 
                   className="instr-select"
@@ -109,7 +117,7 @@ export function ProgramEditor({ program, activeLine, onChange, onAddLine, onRemo
           ))}
         </div>
         <div className="editor-actions">
-          <button onClick={onAddLine}><Plus size={14} /> Add Line</button>
+          <button onClick={onAddLine}><Plus size={14} /> Dodaj linię</button>
         </div>
       </div>
     </div>

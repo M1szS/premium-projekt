@@ -112,7 +112,7 @@ function App() {
 
   // Dodaje pustą linię do programu w edytorze
   const handleAddLine = () => {
-    setProgram([...program, { instruction: '', argument: '', comment: '' }]);
+    setProgram([...program, { label: '', instruction: '', argument: '', comment: '' }]);
   };
 
   const handleRemoveLine = (index) => {

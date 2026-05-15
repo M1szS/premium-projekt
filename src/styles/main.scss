@@ -297,7 +297,7 @@ body {
 /* --- PROGRAM EDITOR --- */
 .editor-grid {
   display: grid;
-  grid-template-columns: 40px 100px 100px 1fr;
+  grid-template-columns: 40px 80px 100px 100px 1fr;
   gap: 1px;
   background: var(--panel-border);
   border: 1px solid var(--panel-border);

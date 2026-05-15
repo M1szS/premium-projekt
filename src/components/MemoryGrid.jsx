@@ -10,7 +10,7 @@ export function MemoryGrid({ memory, flashAddress, onMemoryChange }) {
       <div className="panel-header">Memory</div>
       <div className="panel-body">
         <div className="memory-grid">
-          <div className="grid-row">
+          <div className="mem-row header">
             <div className="mem-header">Address</div>
             <div className="mem-header">Value</div>
           </div>

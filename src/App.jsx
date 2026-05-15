@@ -12,21 +12,14 @@ import { RAMEngine } from './lib/ramEngine';
 import './styles/main.scss';
 
 // Przykładowy program startowy: dodawanie dwóch liczb z wejścia
-const initialProgram = [
-  { instruction: 'READ', argument: '1', comment: '// wczytaj pierwszą liczbę do pamięci[1]' },
-  { instruction: 'READ', argument: '2', comment: '// wczytaj drugą liczbę do pamięci[2]' },
-  { instruction: 'LOAD', argument: '1', comment: '// załaduj pamięć[1] do akumulatora (ACC)' },
-  { instruction: 'ADD', argument: '2', comment: '// dodaj pamięć[2] do ACC' },
-  { instruction: 'STORE', argument: '3', comment: '// zapisz ACC do pamięci[3]' },
-  { instruction: 'WRITE', argument: '3', comment: '// wypisz pamięć[3] na wyjście' },
-  { instruction: 'HALT', argument: '', comment: '// zakończ program' },
-];
+const initialProgram = [];
 
 function App() {
   const [program, setProgram] = useState(initialProgram);
   const [isRunning, setIsRunning] = useState(false);
   const [flashAddr, setFlashAddr] = useState(-1);
   const engineRef = useRef(new RAMEngine());
+  const fileInputRef = useRef(null);
   
   // Create an initial memory state copy to trigger re-renders
   const [memory, setMemory] = useState(Array(64).fill(0));
@@ -140,30 +133,64 @@ function App() {
     syncState();
   };
 
-  // Mały komponent lokalny: kontrolki w nagłówku aplikacji
-  const Controls = () => (
-    <div className="controls">
-      <button className="secondary"><FolderOpen size={18} /> Open</button>
-      <button className="secondary"><Save size={18} /> Save</button>
-      <div style={{ width: '20px' }} />
-      <button className="primary" onClick={handlePlayPause}>
-        {isRunning ? <Pause size={18} /> : <Play size={18} />}
-        {isRunning ? 'Pause' : 'Play'}
-      </button>
-      <button className="secondary" onClick={handleStep} disabled={isRunning || engineRef.current.halted}>
-        <SkipForward size={18} /> Step
-      </button>
-      <button className="error" onClick={handleReset}>
-        <Square size={18} /> Reset
-      </button>
-    </div>
-  );
+  const handleSaveProgram = () => {
+    const data = JSON.stringify(program, null, 2);
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(data);
+    const link = document.createElement('a');
+    link.href = dataStr;
+    link.download = 'ram_program.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleOpenProgram = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const loadedProgram = JSON.parse(event.target.result);
+        setProgram(loadedProgram);
+        handleReset();
+      } catch (err) {
+        alert("Failed to load program: " + err.message);
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = null;
+  };
 
   return (
     <div className="app-container">
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        style={{ display: 'none' }} 
+        accept=".json"
+        onChange={handleOpenProgram}
+      />
       <header className="header">
         <h1>RAM Machine Web</h1>
-        <Controls />
+        <div className="controls">
+          <button className="secondary" onClick={() => fileInputRef.current.click()}>
+            <FolderOpen size={18} /> Open
+          </button>
+          <button className="secondary" onClick={handleSaveProgram}>
+            <Save size={18} /> Save
+          </button>
+          <div style={{ width: '20px' }} />
+          <button className="primary" onClick={handlePlayPause}>
+            {isRunning ? <Pause size={18} /> : <Play size={18} />}
+            {isRunning ? 'Pause' : 'Play'}
+          </button>
+          <button className="secondary" onClick={handleStep} disabled={isRunning || engineRef.current.halted}>
+            <SkipForward size={18} /> Step
+          </button>
+          <button className="error" onClick={handleReset}>
+            <Square size={18} /> Reset
+          </button>
+        </div>
       </header>
 
       {error && (

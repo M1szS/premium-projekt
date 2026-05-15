@@ -1,3 +1,8 @@
+// Plik: src/App.jsx
+// Główny komponent aplikacji "RAM Machine".
+// Zarządza stanem symulatora, kontrolkami odtwarzania,
+// edytorem programu, widokiem pamięci oraz taśmami I/O.
+// Komentarze i etykiety w aplikacji są w języku polskim.
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Square, SkipForward, Save, FolderOpen } from 'lucide-react';
 import { ProcessorView } from './components/ProcessorView';
@@ -6,18 +11,18 @@ import { MemoryGrid } from './components/MemoryGrid';
 import { RAMEngine } from './lib/ramEngine';
 import './styles/main.scss';
 
+// Przykładowy program startowy: dodawanie dwóch liczb z wejścia
 const initialProgram = [
-  { instruction: 'READ', argument: '1', comment: '// read first number to memory[1]' },
-  { instruction: 'READ', argument: '2', comment: '// read second number to memory[2]' },
-  { instruction: 'LOAD', argument: '1', comment: '// load memory[1] to ACC' },
-  { instruction: 'ADD', argument: '2', comment: '// add memory[2] to ACC' },
-  { instruction: 'STORE', argument: '3', comment: '// store ACC to memory[3]' },
-  { instruction: 'WRITE', argument: '3', comment: '// write memory[3] to output' },
-  { instruction: 'HALT', argument: '', comment: '// end program' },
+  { instruction: 'READ', argument: '1', comment: '// wczytaj pierwszą liczbę do pamięci[1]' },
+  { instruction: 'READ', argument: '2', comment: '// wczytaj drugą liczbę do pamięci[2]' },
+  { instruction: 'LOAD', argument: '1', comment: '// załaduj pamięć[1] do akumulatora (ACC)' },
+  { instruction: 'ADD', argument: '2', comment: '// dodaj pamięć[2] do ACC' },
+  { instruction: 'STORE', argument: '3', comment: '// zapisz ACC do pamięci[3]' },
+  { instruction: 'WRITE', argument: '3', comment: '// wypisz pamięć[3] na wyjście' },
+  { instruction: 'HALT', argument: '', comment: '// zakończ program' },
 ];
 
 function App() {
-  const [engineState, setEngineState] = useState(new RAMEngine());
   const [program, setProgram] = useState(initialProgram);
   const [isRunning, setIsRunning] = useState(false);
   const [flashAddr, setFlashAddr] = useState(-1);
@@ -31,18 +36,27 @@ function App() {
   const [ip, setIp] = useState(0);
   const [error, setError] = useState(null);
 
+  // Synchronizuje stan React z wewnętrznym silnikiem symulatora
   const syncState = () => {
-    setMemory([...engineRef.current.memory]);
-    setInputTape([...engineRef.current.inputTape]);
-    setOutputTape([...engineRef.current.outputTape]);
-    setAcc(engineRef.current.acc);
-    setIp(engineRef.current.ip);
-    setError(engineRef.current.error);
-    if (engineRef.current.halted || engineRef.current.error) {
-      setIsRunning(false);
-    }
+    const e = engineRef.current;
+    setMemory([...e.memory]);
+    setInputTape([...e.inputTape]);
+    setOutputTape([...e.outputTape]);
+    setAcc(e.acc);
+    setIp(e.ip);
+    setError(e.error);
+    if (e.halted || e.error) setIsRunning(false);
   };
 
+  // Znajduje adres pierwszej zmienionej komórki pamięci
+  const findChangedAddress = (oldMem, newMem) => {
+    for (let i = 0; i < newMem.length; i++) {
+      if (newMem[i] !== oldMem[i]) return i;
+    }
+    return -1;
+  };
+
+  // Resetuje silnik i przywraca podstawowy stan
   const handleReset = () => {
     engineRef.current.reset();
     engineRef.current.loadProgram(program, inputTape); // keep input tape or reset it? Let's keep it for now but maybe clear output
@@ -53,31 +67,23 @@ function App() {
     syncState();
   };
 
+  // Wykonuje pojedynczy krok instrukcji w silniku
   const handleStep = () => {
     if (!engineRef.current.halted && !engineRef.current.error) {
-      // Before step, remember memory to find diff for flashing
       const oldMem = [...engineRef.current.memory];
-      
-      engineRef.current.program = program; // update program in case it changed
+
+      engineRef.current.program = program; // keep program in sync
       engineRef.current.step();
-      
-      // Find flashed address
-      let changedAddr = -1;
-      for (let i=0; i<engineRef.current.memory.length; i++) {
-        if (engineRef.current.memory[i] !== oldMem[i]) {
-          changedAddr = i;
-          break;
-        }
-      }
+
+      const changedAddr = findChangedAddress(oldMem, engineRef.current.memory);
       setFlashAddr(changedAddr);
       syncState();
-      
-      if (changedAddr !== -1) {
-        setTimeout(() => setFlashAddr(-1), 500);
-      }
+
+      if (changedAddr !== -1) setTimeout(() => setFlashAddr(-1), 500);
     }
   };
 
+  // Przełącznik odtwarzania: start/pauza symulacji
   const handlePlayPause = () => {
     if (isRunning) {
       setIsRunning(false);
@@ -86,17 +92,17 @@ function App() {
          handleReset();
       }
       engineRef.current.program = program;
-      engineRef.current.labels = {};
+      // build label map from program
+      const labels = {};
       program.forEach((line, index) => {
-        if (line.label && line.label.trim() !== '') {
-          engineRef.current.labels[line.label.trim()] = index;
-        }
+        if (line.label && line.label.trim() !== '') labels[line.label.trim()] = index;
       });
+      engineRef.current.labels = labels;
       setIsRunning(true);
     }
   };
 
-  // Run loop
+  // Pętla uruchamiana podczas odtwarzania (wywoływana co 500ms)
   useEffect(() => {
     let interval;
     if (isRunning) {
@@ -111,6 +117,7 @@ function App() {
     return () => clearInterval(interval);
   }, [isRunning, program]); // Need program in dep to keep it updated
 
+  // Dodaje pustą linię do programu w edytorze
   const handleAddLine = () => {
     setProgram([...program, { instruction: '', argument: '', comment: '' }]);
   };
@@ -121,37 +128,42 @@ function App() {
     setProgram(newProg);
   };
 
+  // Dodaje wartość do taśmy wejściowej silnika
   const handleInputSubmit = (val) => {
     engineRef.current.inputTape.push(val);
     syncState();
   };
 
+  // Zmienia wartość w pamięci silnika pod adresem `addr`
   const handleMemoryChange = (addr, val) => {
     engineRef.current.setMemory(addr, val);
     syncState();
   };
 
+  // Mały komponent lokalny: kontrolki w nagłówku aplikacji
+  const Controls = () => (
+    <div className="controls">
+      <button className="secondary"><FolderOpen size={18} /> Open</button>
+      <button className="secondary"><Save size={18} /> Save</button>
+      <div style={{ width: '20px' }} />
+      <button className="primary" onClick={handlePlayPause}>
+        {isRunning ? <Pause size={18} /> : <Play size={18} />}
+        {isRunning ? 'Pause' : 'Play'}
+      </button>
+      <button className="secondary" onClick={handleStep} disabled={isRunning || engineRef.current.halted}>
+        <SkipForward size={18} /> Step
+      </button>
+      <button className="error" onClick={handleReset}>
+        <Square size={18} /> Reset
+      </button>
+    </div>
+  );
+
   return (
     <div className="app-container">
       <header className="header">
         <h1>RAM Machine Web</h1>
-        <div className="controls">
-          <button className="secondary"><FolderOpen size={18} /> Open</button>
-          <button className="secondary"><Save size={18} /> Save</button>
-          
-          <div style={{width: '20px'}}></div>
-          
-          <button className="primary" onClick={handlePlayPause}>
-            {isRunning ? <Pause size={18} /> : <Play size={18} />} 
-            {isRunning ? 'Pause' : 'Play'}
-          </button>
-          <button className="secondary" onClick={handleStep} disabled={isRunning || engineRef.current.halted}>
-            <SkipForward size={18} /> Step
-          </button>
-          <button className="error" onClick={handleReset}>
-            <Square size={18} /> Reset
-          </button>
-        </div>
+        <Controls />
       </header>
 
       {error && (

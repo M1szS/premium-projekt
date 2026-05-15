@@ -1,3 +1,6 @@
+// Plik: src/main.jsx
+// Punkt wejścia aplikacji React — renderuje komponent `App`.
+// Komentarze w tym repozytorium są w języku polskim.
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './styles/main.scss'

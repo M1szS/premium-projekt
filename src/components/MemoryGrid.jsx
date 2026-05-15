@@ -1,9 +1,10 @@
+// Plik: src/components/MemoryGrid.jsx
+// Widok pamięci: siatka adresów i wartości. Pozwala edytować komórki.
 import React from 'react';
 
 export function MemoryGrid({ memory, flashAddress, onMemoryChange }) {
-  // To avoid rendering too many rows if not necessary, we will render
-  // the current size of memory.
-  
+  // Rysuje tyle wierszy, ile aktualnie ma pamięć (tablica `memory`).
+
   return (
     <div className="panel">
       <div className="panel-header">Memory</div>

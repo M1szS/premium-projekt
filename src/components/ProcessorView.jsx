@@ -1,9 +1,13 @@
+// Plik: src/components/ProcessorView.jsx
+// Widok rejestrów procesora: pokazuje IP, ACC oraz taśmy wejścia/wyjścia.
 import React, { useState } from 'react';
 import { Play, Send } from 'lucide-react';
 
 export function ProcessorView({ engine, onInput }) {
+  // Lokalny stan dla pola dodawania wartości na taśmę wejściową
   const [inputValue, setInputValue] = useState('');
 
+  // Obsługa wysyłania wartości do taśmy wejściowej
   const handleInputSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim() !== '') {

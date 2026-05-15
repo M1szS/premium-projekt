@@ -1,3 +1,7 @@
+// Plik: src/components/ProgramEditor.jsx
+// Komponent edytora programu RAM: pozwala przeglądać i modyfikować
+// listę instrukcji (instrukcja, argument, komentarz).
+// Zawiera proste podpowiedzi komentarzy generowane automatycznie.
 import React from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 
@@ -22,19 +26,19 @@ export function ProgramEditor({ program, activeLine, onChange, onAddLine, onRemo
     }
 
     switch (instruction) {
-      case 'READ': return `// read input to ${target || 'address'}`;
-      case 'WRITE': return `// write ${target || 'value'} to output`;
-      case 'LOAD': return `// load ${target || 'value'} to accumulator`;
-      case 'STORE': return `// store accumulator to ${target || 'address'}`;
-      case 'ADD': return `// add ${target || 'value'} to accumulator`;
-      case 'SUB': return `// subtract ${target || 'value'} from accumulator`;
-      case 'MULT': return `// multiply accumulator by ${target || 'value'}`;
-      case 'DIV': return `// divide accumulator by ${target || 'value'}`;
-      case 'JUMP': return `// jump to label/line ${cleanArg}`;
-      case 'JGTZ': return `// jump to ${cleanArg} if ACC > 0`;
-      case 'JZERO': return `// jump to ${cleanArg} if ACC == 0`;
-      case 'HALT': return `// halt program execution`;
-      case 'NOP': return `// no operation`;
+      case 'READ': return `// wczytaj wejście do ${target || 'adresu'}`;
+      case 'WRITE': return `// wypisz ${target || 'wartość'} na wyjście`;
+      case 'LOAD': return `// załaduj ${target || 'wartość'} do akumulatora`;
+      case 'STORE': return `// zapisz akumulator do ${target || 'adresu'}`;
+      case 'ADD': return `// dodaj ${target || 'wartość'} do akumulatora`;
+      case 'SUB': return `// odejmij ${target || 'wartość'} od akumulatora`;
+      case 'MULT': return `// pomnóż akumulator przez ${target || 'wartość'}`;
+      case 'DIV': return `// podziel akumulator przez ${target || 'wartość'}`;
+      case 'JUMP': return `// skocz do etykiety/linii ${cleanArg}`;
+      case 'JGTZ': return `// skocz do ${cleanArg} jeśli ACC > 0`;
+      case 'JZERO': return `// skocz do ${cleanArg} jeśli ACC == 0`;
+      case 'HALT': return `// zatrzymaj wykonywanie programu`;
+      case 'NOP': return `// brak operacji`;
       default: return '';
     }
   };
@@ -43,7 +47,7 @@ export function ProgramEditor({ program, activeLine, onChange, onAddLine, onRemo
     const newProgram = [...program];
     const updatedLine = { ...newProgram[index], [field]: value };
     
-    // Update comment automatically
+    // Aktualizuje komentarz linii automatycznie po zmianie instrukcji/argumentu
     if (field === 'instruction' || field === 'argument') {
       updatedLine.comment = getAutoComment(updatedLine.instruction, updatedLine.argument);
     }

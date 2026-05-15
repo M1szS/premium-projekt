@@ -1,6 +1,6 @@
 # 4F
 ___________________________
-- (Matvii Tsurpal - Haomari) - Project Manager
+- (**Matvii Tsurpal** - Haomari) - Project Manager
     -- lead structure oraz code architecture
     -- project manegement
     -- rozwiązywanie problemów z kodem, frameworkami, libreriami
